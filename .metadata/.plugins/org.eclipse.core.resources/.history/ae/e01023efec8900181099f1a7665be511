@@ -1,0 +1,31 @@
+grammar com.ufcg.compiler.Go with org.eclipse.xtext.common.Terminals
+
+generate go "http://www.ufcg.com/compiler/Go"
+
+Init:
+	elements+=VarDecl*
+;
+
+VarDecl:
+	tipoDecl=TIPO id=Terminals::ID atribuicao=IGUAL expressao=EXPRESSAO
+;
+
+TIPO:
+	variavel="var" | constante="const"
+;
+
+IGUAL:
+	igual="="
+;
+
+EXPRESSAO:
+	numero=NUMERO | string=STRING_DECL
+;
+
+NUMERO:
+	Terminals::INT
+;
+
+STRING_DECL:
+	Terminals::ID
+;

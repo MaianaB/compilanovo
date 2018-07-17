@@ -1,0 +1,9 @@
+grammar org.xtext.example.mydsl.GoCopia with org.eclipse.xtext.common.Terminals
+
+generate goCopia "http://www.xtext.org/example/mydsl/GoCopia"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';

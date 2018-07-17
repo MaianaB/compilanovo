@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="go" nsURI="http://www.ufcg.com/compiler/Go" nsPrefix="go">
+  <eClassifiers xsi:type="ecore:EClass" name="Init">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//GoDecl" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GoDecl">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="var" eType="#//VarDecl"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="func" eType="#//FUNCAO"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VarDecl">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tipoDecl" eType="#//TIPO"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="atribuicao" eType="#//IGUAL"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressao" eType="#//EXPRESSAO"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TIPO">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variavel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constante" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IGUAL">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="igual" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EXPRESSAO">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="basic" eType="#//LITERAIS_BASICOS"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declFunction" eType="#//FUNCAO"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LITERAIS_BASICOS">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numero" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FUNCAO">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="func" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nome" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ABRE_PARENTESES" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="PARAMETERS_LIST" eType="#//PARAMETERS_LIST"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="FECHA_PARENTESES" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bloco" eType="#//BLOCK"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BLOCK">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="listaDeComandos" upperBound="-1"
+        eType="#//EXPRESSAO" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PARAMETERS_LIST"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PARAMETER" eSuperTypes="#//PARAMETERS_LIST">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="PARAMETER" upperBound="-1"
+        eType="#//PARAMETER" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,20 @@
+grammar com.ufcg.compiler.Go with org.eclipse.xtext.common.Terminals
+
+generate go "http://www.ufcg.com/compiler/Go"
+
+
+Go:
+	VarDecl | FuncDecl
+;
+
+VarDecl:
+	TIPO
+;
+
+TIPO:
+	"var" | "const"
+;
+
+ID:
+	Terminals::ID
+;
