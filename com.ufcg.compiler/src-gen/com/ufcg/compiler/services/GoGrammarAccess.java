@@ -44,13 +44,13 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cVarAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cVarVarDeclParserRuleCall_0_0 = (RuleCall)cVarAssignment_0.eContents().get(0);
 		private final Assignment cFuncAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cFuncFUNCAOParserRuleCall_1_0 = (RuleCall)cFuncAssignment_1.eContents().get(0);
+		private final RuleCall cFuncFunctionTypeParserRuleCall_1_0 = (RuleCall)cFuncAssignment_1.eContents().get(0);
 		
 		//GoDecl:
-		//	var=VarDecl | func=FUNCAO;
+		//	var=VarDecl | func=FunctionType;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//var=VarDecl | func=FUNCAO
+		//var=VarDecl | func=FunctionType
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//var=VarDecl
@@ -59,11 +59,11 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		//VarDecl
 		public RuleCall getVarVarDeclParserRuleCall_0_0() { return cVarVarDeclParserRuleCall_0_0; }
 		
-		//func=FUNCAO
+		//func=FunctionType
 		public Assignment getFuncAssignment_1() { return cFuncAssignment_1; }
 		
-		//FUNCAO
-		public RuleCall getFuncFUNCAOParserRuleCall_1_0() { return cFuncFUNCAOParserRuleCall_1_0; }
+		//FunctionType
+		public RuleCall getFuncFunctionTypeParserRuleCall_1_0() { return cFuncFunctionTypeParserRuleCall_1_0; }
 	}
 	public class VarDeclElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.VarDecl");
@@ -156,13 +156,15 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cBasicAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cBasicLITERAIS_BASICOSParserRuleCall_0_0 = (RuleCall)cBasicAssignment_0.eContents().get(0);
 		private final Assignment cDeclFunctionAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cDeclFunctionFUNCAOParserRuleCall_1_0 = (RuleCall)cDeclFunctionAssignment_1.eContents().get(0);
+		private final RuleCall cDeclFunctionFunctionTypeParserRuleCall_1_0 = (RuleCall)cDeclFunctionAssignment_1.eContents().get(0);
+		private final Assignment cVariaveisAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cVariaveisVarDeclParserRuleCall_2_0 = (RuleCall)cVariaveisAssignment_2.eContents().get(0);
 		
 		//EXPRESSAO:
-		//	basic=LITERAIS_BASICOS | declFunction=FUNCAO;
+		//	basic=LITERAIS_BASICOS | declFunction=FunctionType | variaveis=VarDecl;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//basic=LITERAIS_BASICOS | declFunction=FUNCAO
+		//basic=LITERAIS_BASICOS | declFunction=FunctionType | variaveis=VarDecl
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//basic=LITERAIS_BASICOS
@@ -171,19 +173,25 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		//LITERAIS_BASICOS
 		public RuleCall getBasicLITERAIS_BASICOSParserRuleCall_0_0() { return cBasicLITERAIS_BASICOSParserRuleCall_0_0; }
 		
-		//declFunction=FUNCAO
+		//declFunction=FunctionType
 		public Assignment getDeclFunctionAssignment_1() { return cDeclFunctionAssignment_1; }
 		
-		//FUNCAO
-		public RuleCall getDeclFunctionFUNCAOParserRuleCall_1_0() { return cDeclFunctionFUNCAOParserRuleCall_1_0; }
+		//FunctionType
+		public RuleCall getDeclFunctionFunctionTypeParserRuleCall_1_0() { return cDeclFunctionFunctionTypeParserRuleCall_1_0; }
+		
+		//variaveis=VarDecl
+		public Assignment getVariaveisAssignment_2() { return cVariaveisAssignment_2; }
+		
+		//VarDecl
+		public RuleCall getVariaveisVarDeclParserRuleCall_2_0() { return cVariaveisVarDeclParserRuleCall_2_0; }
 	}
 	public class LITERAIS_BASICOSElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.LITERAIS_BASICOS");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cNumeroAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cNumeroNUMEROParserRuleCall_0_0 = (RuleCall)cNumeroAssignment_0.eContents().get(0);
+		private final RuleCall cNumeroNUMEROTerminalRuleCall_0_0 = (RuleCall)cNumeroAssignment_0.eContents().get(0);
 		private final Assignment cStringAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cStringSTRING_DECLParserRuleCall_1_0 = (RuleCall)cStringAssignment_1.eContents().get(0);
+		private final RuleCall cStringSTRING_DECLTerminalRuleCall_1_0 = (RuleCall)cStringAssignment_1.eContents().get(0);
 		
 		//LITERAIS_BASICOS:
 		//	numero=NUMERO | string=STRING_DECL;
@@ -196,44 +204,38 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		public Assignment getNumeroAssignment_0() { return cNumeroAssignment_0; }
 		
 		//NUMERO
-		public RuleCall getNumeroNUMEROParserRuleCall_0_0() { return cNumeroNUMEROParserRuleCall_0_0; }
+		public RuleCall getNumeroNUMEROTerminalRuleCall_0_0() { return cNumeroNUMEROTerminalRuleCall_0_0; }
 		
 		//string=STRING_DECL
 		public Assignment getStringAssignment_1() { return cStringAssignment_1; }
 		
 		//STRING_DECL
-		public RuleCall getStringSTRING_DECLParserRuleCall_1_0() { return cStringSTRING_DECLParserRuleCall_1_0; }
+		public RuleCall getStringSTRING_DECLTerminalRuleCall_1_0() { return cStringSTRING_DECLTerminalRuleCall_1_0; }
 	}
-	public class FUNCAOElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.FUNCAO");
+	public class FunctionTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.FunctionType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cFuncAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cFuncFuncKeyword_0_0 = (Keyword)cFuncAssignment_0.eContents().get(0);
+		private final Keyword cFuncKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNomeAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNomeIDTerminalRuleCall_1_0 = (RuleCall)cNomeAssignment_1.eContents().get(0);
-		private final Assignment cABRE_PARENTESESAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cABRE_PARENTESESABRE_PARENTESESParserRuleCall_2_0 = (RuleCall)cABRE_PARENTESESAssignment_2.eContents().get(0);
-		private final Assignment cPARAMETERS_LISTAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cPARAMETERS_LISTPARAMETERS_LISTParserRuleCall_3_0 = (RuleCall)cPARAMETERS_LISTAssignment_3.eContents().get(0);
-		private final Assignment cFECHA_PARENTESESAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cFECHA_PARENTESESFECHA_PARENTESESParserRuleCall_4_0 = (RuleCall)cFECHA_PARENTESESAssignment_4.eContents().get(0);
-		private final Assignment cBlocoAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cBlocoBLOCKParserRuleCall_5_0 = (RuleCall)cBlocoAssignment_5.eContents().get(0);
+		private final Assignment cAssinaturaAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cAssinaturaSignatureParserRuleCall_2_0 = (RuleCall)cAssinaturaAssignment_2.eContents().get(0);
+		private final Assignment cBlocoAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cBlocoBLOCKParserRuleCall_3_0 = (RuleCall)cBlocoAssignment_3.eContents().get(0);
 		
-		//FUNCAO:
-		//	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST?
-		//	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK;
+		////FUNCAO:
+		////	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST? 
+		////	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK
+		////;
+		//FunctionType:
+		//	"func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST?
-		//FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK
+		//"func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?
 		public Group getGroup() { return cGroup; }
 		
-		//func="func"
-		public Assignment getFuncAssignment_0() { return cFuncAssignment_0; }
-		
 		//"func"
-		public Keyword getFuncFuncKeyword_0_0() { return cFuncFuncKeyword_0_0; }
+		public Keyword getFuncKeyword_0() { return cFuncKeyword_0; }
 		
 		//nome=Terminals::ID
 		public Assignment getNomeAssignment_1() { return cNomeAssignment_1; }
@@ -241,29 +243,102 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		//Terminals::ID
 		public RuleCall getNomeIDTerminalRuleCall_1_0() { return cNomeIDTerminalRuleCall_1_0; }
 		
-		//ABRE_PARENTESES=ABRE_PARENTESES
-		public Assignment getABRE_PARENTESESAssignment_2() { return cABRE_PARENTESESAssignment_2; }
+		//assinatura=Signature
+		public Assignment getAssinaturaAssignment_2() { return cAssinaturaAssignment_2; }
 		
-		//ABRE_PARENTESES
-		public RuleCall getABRE_PARENTESESABRE_PARENTESESParserRuleCall_2_0() { return cABRE_PARENTESESABRE_PARENTESESParserRuleCall_2_0; }
+		//Signature
+		public RuleCall getAssinaturaSignatureParserRuleCall_2_0() { return cAssinaturaSignatureParserRuleCall_2_0; }
 		
-		//PARAMETERS_LIST=PARAMETERS_LIST?
-		public Assignment getPARAMETERS_LISTAssignment_3() { return cPARAMETERS_LISTAssignment_3; }
-		
-		//PARAMETERS_LIST
-		public RuleCall getPARAMETERS_LISTPARAMETERS_LISTParserRuleCall_3_0() { return cPARAMETERS_LISTPARAMETERS_LISTParserRuleCall_3_0; }
-		
-		//FECHA_PARENTESES=FECHA_PARENTESES
-		public Assignment getFECHA_PARENTESESAssignment_4() { return cFECHA_PARENTESESAssignment_4; }
-		
-		//FECHA_PARENTESES
-		public RuleCall getFECHA_PARENTESESFECHA_PARENTESESParserRuleCall_4_0() { return cFECHA_PARENTESESFECHA_PARENTESESParserRuleCall_4_0; }
-		
-		//bloco=BLOCK
-		public Assignment getBlocoAssignment_5() { return cBlocoAssignment_5; }
+		//bloco=BLOCK?
+		public Assignment getBlocoAssignment_3() { return cBlocoAssignment_3; }
 		
 		//BLOCK
-		public RuleCall getBlocoBLOCKParserRuleCall_5_0() { return cBlocoBLOCKParserRuleCall_5_0; }
+		public RuleCall getBlocoBLOCKParserRuleCall_3_0() { return cBlocoBLOCKParserRuleCall_3_0; }
+	}
+	public class SignatureElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.Signature");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cParametersParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cRetornoAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cRetornoResultParserRuleCall_1_0 = (RuleCall)cRetornoAssignment_1.eContents().get(0);
+		
+		//Signature:
+		//	Parameters retorno=Result?;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Parameters retorno=Result?
+		public Group getGroup() { return cGroup; }
+		
+		//Parameters
+		public RuleCall getParametersParserRuleCall_0() { return cParametersParserRuleCall_0; }
+		
+		//retorno=Result?
+		public Assignment getRetornoAssignment_1() { return cRetornoAssignment_1; }
+		
+		//Result
+		public RuleCall getRetornoResultParserRuleCall_1_0() { return cRetornoResultParserRuleCall_1_0; }
+	}
+	public class ResultElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.Result");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cResultAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Assignment cParametrosAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cParametrosParametersParserRuleCall_0_1_0 = (RuleCall)cParametrosAssignment_0_1.eContents().get(0);
+		private final Assignment cTipoAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cTipoTypesParserRuleCall_1_0 = (RuleCall)cTipoAssignment_1.eContents().get(0);
+		
+		//Result:
+		//	{Result} parametros=Parameters | tipo=Types;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{Result} parametros=Parameters | tipo=Types
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//{Result} parametros=Parameters
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//{Result}
+		public Action getResultAction_0_0() { return cResultAction_0_0; }
+		
+		//parametros=Parameters
+		public Assignment getParametrosAssignment_0_1() { return cParametrosAssignment_0_1; }
+		
+		//Parameters
+		public RuleCall getParametrosParametersParserRuleCall_0_1_0() { return cParametrosParametersParserRuleCall_0_1_0; }
+		
+		//tipo=Types
+		public Assignment getTipoAssignment_1() { return cTipoAssignment_1; }
+		
+		//Types
+		public RuleCall getTipoTypesParserRuleCall_1_0() { return cTipoTypesParserRuleCall_1_0; }
+	}
+	public class ParametersElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.Parameters");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cParametersAction_0 = (Action)cGroup.eContents().get(0);
+		private final RuleCall cABRE_PARENTESESParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cPARAMETERS_LISTParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final RuleCall cFECHA_PARENTESESParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		
+		//Parameters:
+		//	{Parameters} ABRE_PARENTESES PARAMETERS_LIST? FECHA_PARENTESES;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{Parameters} ABRE_PARENTESES PARAMETERS_LIST? FECHA_PARENTESES
+		public Group getGroup() { return cGroup; }
+		
+		//{Parameters}
+		public Action getParametersAction_0() { return cParametersAction_0; }
+		
+		//ABRE_PARENTESES
+		public RuleCall getABRE_PARENTESESParserRuleCall_1() { return cABRE_PARENTESESParserRuleCall_1; }
+		
+		//PARAMETERS_LIST?
+		public RuleCall getPARAMETERS_LISTParserRuleCall_2() { return cPARAMETERS_LISTParserRuleCall_2; }
+		
+		//FECHA_PARENTESES
+		public RuleCall getFECHA_PARENTESESParserRuleCall_3() { return cFECHA_PARENTESESParserRuleCall_3; }
 	}
 	public class ABRE_PARENTESESElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.ABRE_PARENTESES");
@@ -403,28 +478,6 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		//"boolean"
 		public Keyword getBooleanKeyword_3() { return cBooleanKeyword_3; }
 	}
-	public class NUMEROElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.NUMERO");
-		private final RuleCall cINTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//NUMERO:
-		//	Terminals::INT;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//Terminals::INT
-		public RuleCall getINTTerminalRuleCall() { return cINTTerminalRuleCall; }
-	}
-	public class STRING_DECLElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.STRING_DECL");
-		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//STRING_DECL:
-		//	Terminals::ID;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//Terminals::ID
-		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
-	}
 	
 	
 	private final InitElements pInit;
@@ -434,15 +487,18 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 	private final IGUALElements pIGUAL;
 	private final EXPRESSAOElements pEXPRESSAO;
 	private final LITERAIS_BASICOSElements pLITERAIS_BASICOS;
-	private final FUNCAOElements pFUNCAO;
+	private final FunctionTypeElements pFunctionType;
+	private final SignatureElements pSignature;
+	private final ResultElements pResult;
+	private final ParametersElements pParameters;
 	private final ABRE_PARENTESESElements pABRE_PARENTESES;
 	private final FECHA_PARENTESESElements pFECHA_PARENTESES;
 	private final BLOCKElements pBLOCK;
 	private final PARAMETERS_LISTElements pPARAMETERS_LIST;
 	private final PARAMETERElements pPARAMETER;
 	private final TypesElements pTypes;
-	private final NUMEROElements pNUMERO;
-	private final STRING_DECLElements pSTRING_DECL;
+	private final TerminalRule tNUMERO;
+	private final TerminalRule tSTRING_DECL;
 	
 	private final Grammar grammar;
 	
@@ -460,15 +516,18 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		this.pIGUAL = new IGUALElements();
 		this.pEXPRESSAO = new EXPRESSAOElements();
 		this.pLITERAIS_BASICOS = new LITERAIS_BASICOSElements();
-		this.pFUNCAO = new FUNCAOElements();
+		this.pFunctionType = new FunctionTypeElements();
+		this.pSignature = new SignatureElements();
+		this.pResult = new ResultElements();
+		this.pParameters = new ParametersElements();
 		this.pABRE_PARENTESES = new ABRE_PARENTESESElements();
 		this.pFECHA_PARENTESES = new FECHA_PARENTESESElements();
 		this.pBLOCK = new BLOCKElements();
 		this.pPARAMETERS_LIST = new PARAMETERS_LISTElements();
 		this.pPARAMETER = new PARAMETERElements();
 		this.pTypes = new TypesElements();
-		this.pNUMERO = new NUMEROElements();
-		this.pSTRING_DECL = new STRING_DECLElements();
+		this.tNUMERO = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.NUMERO");
+		this.tSTRING_DECL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.ufcg.compiler.Go.STRING_DECL");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -509,7 +568,7 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//GoDecl:
-	//	var=VarDecl | func=FUNCAO;
+	//	var=VarDecl | func=FunctionType;
 	public GoDeclElements getGoDeclAccess() {
 		return pGoDecl;
 	}
@@ -549,7 +608,7 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EXPRESSAO:
-	//	basic=LITERAIS_BASICOS | declFunction=FUNCAO;
+	//	basic=LITERAIS_BASICOS | declFunction=FunctionType | variaveis=VarDecl;
 	public EXPRESSAOElements getEXPRESSAOAccess() {
 		return pEXPRESSAO;
 	}
@@ -568,15 +627,48 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		return getLITERAIS_BASICOSAccess().getRule();
 	}
 	
-	//FUNCAO:
-	//	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST?
-	//	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK;
-	public FUNCAOElements getFUNCAOAccess() {
-		return pFUNCAO;
+	////FUNCAO:
+	////	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST? 
+	////	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK
+	////;
+	//FunctionType:
+	//	"func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
+	public FunctionTypeElements getFunctionTypeAccess() {
+		return pFunctionType;
 	}
 	
-	public ParserRule getFUNCAORule() {
-		return getFUNCAOAccess().getRule();
+	public ParserRule getFunctionTypeRule() {
+		return getFunctionTypeAccess().getRule();
+	}
+	
+	//Signature:
+	//	Parameters retorno=Result?;
+	public SignatureElements getSignatureAccess() {
+		return pSignature;
+	}
+	
+	public ParserRule getSignatureRule() {
+		return getSignatureAccess().getRule();
+	}
+	
+	//Result:
+	//	{Result} parametros=Parameters | tipo=Types;
+	public ResultElements getResultAccess() {
+		return pResult;
+	}
+	
+	public ParserRule getResultRule() {
+		return getResultAccess().getRule();
+	}
+	
+	//Parameters:
+	//	{Parameters} ABRE_PARENTESES PARAMETERS_LIST? FECHA_PARENTESES;
+	public ParametersElements getParametersAccess() {
+		return pParameters;
+	}
+	
+	public ParserRule getParametersRule() {
+		return getParametersAccess().getRule();
 	}
 	
 	//ABRE_PARENTESES:
@@ -639,24 +731,16 @@ public class GoGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypesAccess().getRule();
 	}
 	
-	//NUMERO:
+	//terminal NUMERO:
 	//	Terminals::INT;
-	public NUMEROElements getNUMEROAccess() {
-		return pNUMERO;
+	public TerminalRule getNUMERORule() {
+		return tNUMERO;
 	}
 	
-	public ParserRule getNUMERORule() {
-		return getNUMEROAccess().getRule();
-	}
-	
-	//STRING_DECL:
-	//	Terminals::ID;
-	public STRING_DECLElements getSTRING_DECLAccess() {
-		return pSTRING_DECL;
-	}
-	
-	public ParserRule getSTRING_DECLRule() {
-		return getSTRING_DECLAccess().getRule();
+	//terminal STRING_DECL:
+	//	'"' (Terminals::ID | NUMERO) '"';
+	public TerminalRule getSTRING_DECLRule() {
+		return tSTRING_DECL;
 	}
 	
 	//terminal ID:

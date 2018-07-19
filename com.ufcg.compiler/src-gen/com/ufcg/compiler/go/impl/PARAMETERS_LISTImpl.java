@@ -8,8 +8,6 @@ import com.ufcg.compiler.go.PARAMETERS_LIST;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>PARAMETERS LIST</b></em>'.
@@ -17,7 +15,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class PARAMETERS_LISTImpl extends MinimalEObjectImpl.Container implements PARAMETERS_LIST
+public class PARAMETERS_LISTImpl extends ParametersImpl implements PARAMETERS_LIST
 {
   /**
    * <!-- begin-user-doc -->

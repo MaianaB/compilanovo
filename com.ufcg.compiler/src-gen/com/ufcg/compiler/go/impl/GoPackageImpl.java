@@ -3,10 +3,14 @@
  */
 package com.ufcg.compiler.go.impl;
 
+import com.ufcg.compiler.go.FunctionType;
 import com.ufcg.compiler.go.GoDecl;
 import com.ufcg.compiler.go.GoFactory;
 import com.ufcg.compiler.go.GoPackage;
 import com.ufcg.compiler.go.Init;
+import com.ufcg.compiler.go.Parameters;
+import com.ufcg.compiler.go.Result;
+import com.ufcg.compiler.go.Signature;
 import com.ufcg.compiler.go.VarDecl;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -78,7 +82,28 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass funcaoEClass = null;
+  private EClass functionTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass signatureEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass resultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parametersEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -349,6 +374,16 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getEXPRESSAO_Variaveis()
+  {
+    return (EReference)expressaoEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getLITERAIS_BASICOS()
   {
     return literaiS_BASICOSEClass;
@@ -379,9 +414,9 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFUNCAO()
+  public EClass getFunctionType()
   {
-    return funcaoEClass;
+    return functionTypeEClass;
   }
 
   /**
@@ -389,9 +424,9 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFUNCAO_Func()
+  public EAttribute getFunctionType_Nome()
   {
-    return (EAttribute)funcaoEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)functionTypeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -399,9 +434,9 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFUNCAO_Nome()
+  public EReference getFunctionType_Assinatura()
   {
-    return (EAttribute)funcaoEClass.getEStructuralFeatures().get(1);
+    return (EReference)functionTypeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -409,9 +444,9 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFUNCAO_ABRE_PARENTESES()
+  public EReference getFunctionType_Bloco()
   {
-    return (EAttribute)funcaoEClass.getEStructuralFeatures().get(2);
+    return (EReference)functionTypeEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -419,9 +454,9 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFUNCAO_PARAMETERS_LIST()
+  public EClass getSignature()
   {
-    return (EReference)funcaoEClass.getEStructuralFeatures().get(3);
+    return signatureEClass;
   }
 
   /**
@@ -429,9 +464,9 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFUNCAO_FECHA_PARENTESES()
+  public EClass getResult()
   {
-    return (EAttribute)funcaoEClass.getEStructuralFeatures().get(4);
+    return resultEClass;
   }
 
   /**
@@ -439,9 +474,39 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFUNCAO_Bloco()
+  public EReference getResult_Parametros()
   {
-    return (EReference)funcaoEClass.getEStructuralFeatures().get(5);
+    return (EReference)resultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getResult_Tipo()
+  {
+    return (EAttribute)resultEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getParameters()
+  {
+    return parametersEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getParameters_Retorno()
+  {
+    return (EReference)parametersEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -567,18 +632,25 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
     expressaoEClass = createEClass(EXPRESSAO);
     createEReference(expressaoEClass, EXPRESSAO__BASIC);
     createEReference(expressaoEClass, EXPRESSAO__DECL_FUNCTION);
+    createEReference(expressaoEClass, EXPRESSAO__VARIAVEIS);
 
     literaiS_BASICOSEClass = createEClass(LITERAIS_BASICOS);
     createEAttribute(literaiS_BASICOSEClass, LITERAIS_BASICOS__NUMERO);
     createEAttribute(literaiS_BASICOSEClass, LITERAIS_BASICOS__STRING);
 
-    funcaoEClass = createEClass(FUNCAO);
-    createEAttribute(funcaoEClass, FUNCAO__FUNC);
-    createEAttribute(funcaoEClass, FUNCAO__NOME);
-    createEAttribute(funcaoEClass, FUNCAO__ABRE_PARENTESES);
-    createEReference(funcaoEClass, FUNCAO__PARAMETERS_LIST);
-    createEAttribute(funcaoEClass, FUNCAO__FECHA_PARENTESES);
-    createEReference(funcaoEClass, FUNCAO__BLOCO);
+    functionTypeEClass = createEClass(FUNCTION_TYPE);
+    createEAttribute(functionTypeEClass, FUNCTION_TYPE__NOME);
+    createEReference(functionTypeEClass, FUNCTION_TYPE__ASSINATURA);
+    createEReference(functionTypeEClass, FUNCTION_TYPE__BLOCO);
+
+    signatureEClass = createEClass(SIGNATURE);
+
+    resultEClass = createEClass(RESULT);
+    createEReference(resultEClass, RESULT__PARAMETROS);
+    createEAttribute(resultEClass, RESULT__TIPO);
+
+    parametersEClass = createEClass(PARAMETERS);
+    createEReference(parametersEClass, PARAMETERS__RETORNO);
 
     blockEClass = createEClass(BLOCK);
     createEReference(blockEClass, BLOCK__LISTA_DE_COMANDOS);
@@ -620,6 +692,8 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    parametersEClass.getESuperTypes().add(this.getSignature());
+    parameterS_LISTEClass.getESuperTypes().add(this.getParameters());
     parameterEClass.getESuperTypes().add(this.getPARAMETERS_LIST());
 
     // Initialize classes and features; add operations and parameters
@@ -628,7 +702,7 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
 
     initEClass(goDeclEClass, GoDecl.class, "GoDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getGoDecl_Var(), this.getVarDecl(), null, "var", null, 0, 1, GoDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getGoDecl_Func(), this.getFUNCAO(), null, "func", null, 0, 1, GoDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGoDecl_Func(), this.getFunctionType(), null, "func", null, 0, 1, GoDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(varDeclEClass, VarDecl.class, "VarDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVarDecl_TipoDecl(), this.getTIPO(), null, "tipoDecl", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -645,19 +719,26 @@ public class GoPackageImpl extends EPackageImpl implements GoPackage
 
     initEClass(expressaoEClass, com.ufcg.compiler.go.EXPRESSAO.class, "EXPRESSAO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEXPRESSAO_Basic(), this.getLITERAIS_BASICOS(), null, "basic", null, 0, 1, com.ufcg.compiler.go.EXPRESSAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEXPRESSAO_DeclFunction(), this.getFUNCAO(), null, "declFunction", null, 0, 1, com.ufcg.compiler.go.EXPRESSAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEXPRESSAO_DeclFunction(), this.getFunctionType(), null, "declFunction", null, 0, 1, com.ufcg.compiler.go.EXPRESSAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEXPRESSAO_Variaveis(), this.getVarDecl(), null, "variaveis", null, 0, 1, com.ufcg.compiler.go.EXPRESSAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(literaiS_BASICOSEClass, com.ufcg.compiler.go.LITERAIS_BASICOS.class, "LITERAIS_BASICOS", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getLITERAIS_BASICOS_Numero(), ecorePackage.getEString(), "numero", null, 0, 1, com.ufcg.compiler.go.LITERAIS_BASICOS.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getLITERAIS_BASICOS_String(), ecorePackage.getEString(), "string", null, 0, 1, com.ufcg.compiler.go.LITERAIS_BASICOS.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(funcaoEClass, com.ufcg.compiler.go.FUNCAO.class, "FUNCAO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFUNCAO_Func(), ecorePackage.getEString(), "func", null, 0, 1, com.ufcg.compiler.go.FUNCAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFUNCAO_Nome(), ecorePackage.getEString(), "nome", null, 0, 1, com.ufcg.compiler.go.FUNCAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFUNCAO_ABRE_PARENTESES(), ecorePackage.getEString(), "ABRE_PARENTESES", null, 0, 1, com.ufcg.compiler.go.FUNCAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFUNCAO_PARAMETERS_LIST(), this.getPARAMETERS_LIST(), null, "PARAMETERS_LIST", null, 0, 1, com.ufcg.compiler.go.FUNCAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFUNCAO_FECHA_PARENTESES(), ecorePackage.getEString(), "FECHA_PARENTESES", null, 0, 1, com.ufcg.compiler.go.FUNCAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFUNCAO_Bloco(), this.getBLOCK(), null, "bloco", null, 0, 1, com.ufcg.compiler.go.FUNCAO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(functionTypeEClass, FunctionType.class, "FunctionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getFunctionType_Nome(), ecorePackage.getEString(), "nome", null, 0, 1, FunctionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunctionType_Assinatura(), this.getSignature(), null, "assinatura", null, 0, 1, FunctionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunctionType_Bloco(), this.getBLOCK(), null, "bloco", null, 0, 1, FunctionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(signatureEClass, Signature.class, "Signature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(resultEClass, Result.class, "Result", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getResult_Parametros(), this.getParameters(), null, "parametros", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResult_Tipo(), ecorePackage.getEString(), "tipo", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parametersEClass, Parameters.class, "Parameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParameters_Retorno(), this.getResult(), null, "retorno", null, 0, 1, Parameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(blockEClass, com.ufcg.compiler.go.BLOCK.class, "BLOCK", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBLOCK_ListaDeComandos(), this.getEXPRESSAO(), null, "listaDeComandos", null, 0, -1, com.ufcg.compiler.go.BLOCK.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

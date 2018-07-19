@@ -3,7 +3,7 @@
  */
 package com.ufcg.compiler.go.impl;
 
-import com.ufcg.compiler.go.FUNCAO;
+import com.ufcg.compiler.go.FunctionType;
 import com.ufcg.compiler.go.GoDecl;
 import com.ufcg.compiler.go.GoPackage;
 import com.ufcg.compiler.go.VarDecl;
@@ -51,7 +51,7 @@ public class GoDeclImpl extends MinimalEObjectImpl.Container implements GoDecl
    * @generated
    * @ordered
    */
-  protected FUNCAO func;
+  protected FunctionType func;
 
   /**
    * <!-- begin-user-doc -->
@@ -127,7 +127,7 @@ public class GoDeclImpl extends MinimalEObjectImpl.Container implements GoDecl
    * <!-- end-user-doc -->
    * @generated
    */
-  public FUNCAO getFunc()
+  public FunctionType getFunc()
   {
     return func;
   }
@@ -137,9 +137,9 @@ public class GoDeclImpl extends MinimalEObjectImpl.Container implements GoDecl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetFunc(FUNCAO newFunc, NotificationChain msgs)
+  public NotificationChain basicSetFunc(FunctionType newFunc, NotificationChain msgs)
   {
-    FUNCAO oldFunc = func;
+    FunctionType oldFunc = func;
     func = newFunc;
     if (eNotificationRequired())
     {
@@ -154,7 +154,7 @@ public class GoDeclImpl extends MinimalEObjectImpl.Container implements GoDecl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFunc(FUNCAO newFunc)
+  public void setFunc(FunctionType newFunc)
   {
     if (newFunc != func)
     {
@@ -220,7 +220,7 @@ public class GoDeclImpl extends MinimalEObjectImpl.Container implements GoDecl
         setVar((VarDecl)newValue);
         return;
       case GoPackage.GO_DECL__FUNC:
-        setFunc((FUNCAO)newValue);
+        setFunc((FunctionType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -240,7 +240,7 @@ public class GoDeclImpl extends MinimalEObjectImpl.Container implements GoDecl
         setVar((VarDecl)null);
         return;
       case GoPackage.GO_DECL__FUNC:
-        setFunc((FUNCAO)null);
+        setFunc((FunctionType)null);
         return;
     }
     super.eUnset(featureID);

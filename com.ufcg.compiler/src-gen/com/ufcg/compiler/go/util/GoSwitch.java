@@ -122,10 +122,32 @@ public class GoSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case GoPackage.FUNCAO:
+      case GoPackage.FUNCTION_TYPE:
       {
-        FUNCAO funcao = (FUNCAO)theEObject;
-        T result = caseFUNCAO(funcao);
+        FunctionType functionType = (FunctionType)theEObject;
+        T result = caseFunctionType(functionType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case GoPackage.SIGNATURE:
+      {
+        Signature signature = (Signature)theEObject;
+        T result = caseSignature(signature);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case GoPackage.RESULT:
+      {
+        Result result = (Result)theEObject;
+        T theResult = caseResult(result);
+        if (theResult == null) theResult = defaultCase(theEObject);
+        return theResult;
+      }
+      case GoPackage.PARAMETERS:
+      {
+        Parameters parameters = (Parameters)theEObject;
+        T result = caseParameters(parameters);
+        if (result == null) result = caseSignature(parameters);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -140,6 +162,8 @@ public class GoSwitch<T> extends Switch<T>
       {
         PARAMETERS_LIST parameterS_LIST = (PARAMETERS_LIST)theEObject;
         T result = casePARAMETERS_LIST(parameterS_LIST);
+        if (result == null) result = caseParameters(parameterS_LIST);
+        if (result == null) result = caseSignature(parameterS_LIST);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -148,6 +172,8 @@ public class GoSwitch<T> extends Switch<T>
         PARAMETER parameter = (PARAMETER)theEObject;
         T result = casePARAMETER(parameter);
         if (result == null) result = casePARAMETERS_LIST(parameter);
+        if (result == null) result = caseParameters(parameter);
+        if (result == null) result = caseSignature(parameter);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -268,17 +294,65 @@ public class GoSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>FUNCAO</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Function Type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>FUNCAO</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Function Type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseFUNCAO(FUNCAO object)
+  public T caseFunctionType(FunctionType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Signature</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Signature</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSignature(Signature object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResult(Result object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameters</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameters</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameters(Parameters object)
   {
     return null;
   }

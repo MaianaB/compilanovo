@@ -8,7 +8,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="GoDecl">
     <eStructuralFeatures xsi:type="ecore:EReference" name="var" eType="#//VarDecl"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="func" eType="#//FUNCAO"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="func" eType="#//FunctionType"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VarDecl">
@@ -30,28 +30,37 @@
   <eClassifiers xsi:type="ecore:EClass" name="EXPRESSAO">
     <eStructuralFeatures xsi:type="ecore:EReference" name="basic" eType="#//LITERAIS_BASICOS"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="declFunction" eType="#//FUNCAO"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declFunction" eType="#//FunctionType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variaveis" eType="#//VarDecl"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LITERAIS_BASICOS">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numero" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FUNCAO">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="func" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nome" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ABRE_PARENTESES" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="PARAMETERS_LIST" eType="#//PARAMETERS_LIST"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assinatura" eType="#//Signature"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="FECHA_PARENTESES" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bloco" eType="#//BLOCK"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Signature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Result">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parametros" eType="#//Parameters"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameters" eSuperTypes="#//Signature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="retorno" eType="#//Result"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BLOCK">
     <eStructuralFeatures xsi:type="ecore:EReference" name="listaDeComandos" upperBound="-1"
         eType="#//EXPRESSAO" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PARAMETERS_LIST"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PARAMETERS_LIST" eSuperTypes="#//Parameters"/>
   <eClassifiers xsi:type="ecore:EClass" name="PARAMETER" eSuperTypes="#//PARAMETERS_LIST">
     <eStructuralFeatures xsi:type="ecore:EReference" name="PARAMETER" upperBound="-1"
         eType="#//PARAMETER" containment="true"/>

@@ -87,13 +87,40 @@ public interface GoFactory extends EFactory
   LITERAIS_BASICOS createLITERAIS_BASICOS();
 
   /**
-   * Returns a new object of class '<em>FUNCAO</em>'.
+   * Returns a new object of class '<em>Function Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>FUNCAO</em>'.
+   * @return a new object of class '<em>Function Type</em>'.
    * @generated
    */
-  FUNCAO createFUNCAO();
+  FunctionType createFunctionType();
+
+  /**
+   * Returns a new object of class '<em>Signature</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Signature</em>'.
+   * @generated
+   */
+  Signature createSignature();
+
+  /**
+   * Returns a new object of class '<em>Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result</em>'.
+   * @generated
+   */
+  Result createResult();
+
+  /**
+   * Returns a new object of class '<em>Parameters</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parameters</em>'.
+   * @generated
+   */
+  Parameters createParameters();
 
   /**
    * Returns a new object of class '<em>BLOCK</em>'.

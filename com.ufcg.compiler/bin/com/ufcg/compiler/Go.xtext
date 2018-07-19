@@ -7,7 +7,7 @@ Init:
 ;
 
 GoDecl:
-	var=VarDecl | func=FUNCAO
+	var=VarDecl | func=FunctionType
 ;
 
 VarDecl:
@@ -23,18 +23,22 @@ IGUAL:
 ;
 
 EXPRESSAO:
-	basic=LITERAIS_BASICOS | declFunction=FUNCAO
+	basic=LITERAIS_BASICOS | declFunction=FunctionType | variaveis=VarDecl
 ;
 
 LITERAIS_BASICOS:
 	numero=NUMERO | string=STRING_DECL
 ;
 
-FUNCAO:
-	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST? 
-	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK
-;
+//FUNCAO:
+//	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST? 
+//	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK
+//;
 
+FunctionType: "func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
+Signature: Parameters retorno=Result?;
+Result: {Result} parametros=Parameters | tipo=Types;
+Parameters: {Parameters} ABRE_PARENTESES PARAMETERS_LIST? FECHA_PARENTESES;
 ABRE_PARENTESES:
 	"("
 ;
@@ -59,10 +63,10 @@ Types:
 	"string" | "int" | "float" | "boolean"
 ;
 
-NUMERO:
+terminal NUMERO:
 	Terminals::INT
 ;
 
-STRING_DECL:
-	Terminals::ID
+terminal STRING_DECL:
+	'"' (Terminals::ID | NUMERO) '"'
 ;

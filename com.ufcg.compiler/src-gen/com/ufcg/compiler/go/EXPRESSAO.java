@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.ufcg.compiler.go.EXPRESSAO#getBasic <em>Basic</em>}</li>
  *   <li>{@link com.ufcg.compiler.go.EXPRESSAO#getDeclFunction <em>Decl Function</em>}</li>
+ *   <li>{@link com.ufcg.compiler.go.EXPRESSAO#getVariaveis <em>Variaveis</em>}</li>
  * </ul>
  *
  * @see com.ufcg.compiler.go.GoPackage#getEXPRESSAO()
@@ -59,12 +60,12 @@ public interface EXPRESSAO extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Decl Function</em>' containment reference.
-   * @see #setDeclFunction(FUNCAO)
+   * @see #setDeclFunction(FunctionType)
    * @see com.ufcg.compiler.go.GoPackage#getEXPRESSAO_DeclFunction()
    * @model containment="true"
    * @generated
    */
-  FUNCAO getDeclFunction();
+  FunctionType getDeclFunction();
 
   /**
    * Sets the value of the '{@link com.ufcg.compiler.go.EXPRESSAO#getDeclFunction <em>Decl Function</em>}' containment reference.
@@ -74,6 +75,32 @@ public interface EXPRESSAO extends EObject
    * @see #getDeclFunction()
    * @generated
    */
-  void setDeclFunction(FUNCAO value);
+  void setDeclFunction(FunctionType value);
+
+  /**
+   * Returns the value of the '<em><b>Variaveis</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Variaveis</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Variaveis</em>' containment reference.
+   * @see #setVariaveis(VarDecl)
+   * @see com.ufcg.compiler.go.GoPackage#getEXPRESSAO_Variaveis()
+   * @model containment="true"
+   * @generated
+   */
+  VarDecl getVariaveis();
+
+  /**
+   * Sets the value of the '{@link com.ufcg.compiler.go.EXPRESSAO#getVariaveis <em>Variaveis</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Variaveis</em>' containment reference.
+   * @see #getVariaveis()
+   * @generated
+   */
+  void setVariaveis(VarDecl value);
 
 } // EXPRESSAO

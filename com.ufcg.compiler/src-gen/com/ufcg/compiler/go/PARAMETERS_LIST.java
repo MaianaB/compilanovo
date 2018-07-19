@@ -3,7 +3,6 @@
  */
 package com.ufcg.compiler.go;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +14,6 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface PARAMETERS_LIST extends EObject
+public interface PARAMETERS_LIST extends Parameters
 {
 } // PARAMETERS_LIST

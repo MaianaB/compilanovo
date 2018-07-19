@@ -4,9 +4,10 @@
 package com.ufcg.compiler.go.impl;
 
 import com.ufcg.compiler.go.EXPRESSAO;
-import com.ufcg.compiler.go.FUNCAO;
+import com.ufcg.compiler.go.FunctionType;
 import com.ufcg.compiler.go.GoPackage;
 import com.ufcg.compiler.go.LITERAIS_BASICOS;
+import com.ufcg.compiler.go.VarDecl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -27,6 +28,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link com.ufcg.compiler.go.impl.EXPRESSAOImpl#getBasic <em>Basic</em>}</li>
  *   <li>{@link com.ufcg.compiler.go.impl.EXPRESSAOImpl#getDeclFunction <em>Decl Function</em>}</li>
+ *   <li>{@link com.ufcg.compiler.go.impl.EXPRESSAOImpl#getVariaveis <em>Variaveis</em>}</li>
  * </ul>
  *
  * @generated
@@ -51,7 +53,17 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
    * @generated
    * @ordered
    */
-  protected FUNCAO declFunction;
+  protected FunctionType declFunction;
+
+  /**
+   * The cached value of the '{@link #getVariaveis() <em>Variaveis</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVariaveis()
+   * @generated
+   * @ordered
+   */
+  protected VarDecl variaveis;
 
   /**
    * <!-- begin-user-doc -->
@@ -127,7 +139,7 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
    * <!-- end-user-doc -->
    * @generated
    */
-  public FUNCAO getDeclFunction()
+  public FunctionType getDeclFunction()
   {
     return declFunction;
   }
@@ -137,9 +149,9 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDeclFunction(FUNCAO newDeclFunction, NotificationChain msgs)
+  public NotificationChain basicSetDeclFunction(FunctionType newDeclFunction, NotificationChain msgs)
   {
-    FUNCAO oldDeclFunction = declFunction;
+    FunctionType oldDeclFunction = declFunction;
     declFunction = newDeclFunction;
     if (eNotificationRequired())
     {
@@ -154,7 +166,7 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDeclFunction(FUNCAO newDeclFunction)
+  public void setDeclFunction(FunctionType newDeclFunction)
   {
     if (newDeclFunction != declFunction)
     {
@@ -175,6 +187,54 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
    * <!-- end-user-doc -->
    * @generated
    */
+  public VarDecl getVariaveis()
+  {
+    return variaveis;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetVariaveis(VarDecl newVariaveis, NotificationChain msgs)
+  {
+    VarDecl oldVariaveis = variaveis;
+    variaveis = newVariaveis;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GoPackage.EXPRESSAO__VARIAVEIS, oldVariaveis, newVariaveis);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVariaveis(VarDecl newVariaveis)
+  {
+    if (newVariaveis != variaveis)
+    {
+      NotificationChain msgs = null;
+      if (variaveis != null)
+        msgs = ((InternalEObject)variaveis).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GoPackage.EXPRESSAO__VARIAVEIS, null, msgs);
+      if (newVariaveis != null)
+        msgs = ((InternalEObject)newVariaveis).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GoPackage.EXPRESSAO__VARIAVEIS, null, msgs);
+      msgs = basicSetVariaveis(newVariaveis, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, GoPackage.EXPRESSAO__VARIAVEIS, newVariaveis, newVariaveis));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -184,6 +244,8 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
         return basicSetBasic(null, msgs);
       case GoPackage.EXPRESSAO__DECL_FUNCTION:
         return basicSetDeclFunction(null, msgs);
+      case GoPackage.EXPRESSAO__VARIAVEIS:
+        return basicSetVariaveis(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -202,6 +264,8 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
         return getBasic();
       case GoPackage.EXPRESSAO__DECL_FUNCTION:
         return getDeclFunction();
+      case GoPackage.EXPRESSAO__VARIAVEIS:
+        return getVariaveis();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -220,7 +284,10 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
         setBasic((LITERAIS_BASICOS)newValue);
         return;
       case GoPackage.EXPRESSAO__DECL_FUNCTION:
-        setDeclFunction((FUNCAO)newValue);
+        setDeclFunction((FunctionType)newValue);
+        return;
+      case GoPackage.EXPRESSAO__VARIAVEIS:
+        setVariaveis((VarDecl)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -240,7 +307,10 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
         setBasic((LITERAIS_BASICOS)null);
         return;
       case GoPackage.EXPRESSAO__DECL_FUNCTION:
-        setDeclFunction((FUNCAO)null);
+        setDeclFunction((FunctionType)null);
+        return;
+      case GoPackage.EXPRESSAO__VARIAVEIS:
+        setVariaveis((VarDecl)null);
         return;
     }
     super.eUnset(featureID);
@@ -260,6 +330,8 @@ public class EXPRESSAOImpl extends MinimalEObjectImpl.Container implements EXPRE
         return basic != null;
       case GoPackage.EXPRESSAO__DECL_FUNCTION:
         return declFunction != null;
+      case GoPackage.EXPRESSAO__VARIAVEIS:
+        return variaveis != null;
     }
     return super.eIsSet(featureID);
   }

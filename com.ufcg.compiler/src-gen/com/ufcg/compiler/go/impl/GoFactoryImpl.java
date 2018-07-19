@@ -72,7 +72,10 @@ public class GoFactoryImpl extends EFactoryImpl implements GoFactory
       case GoPackage.IGUAL: return createIGUAL();
       case GoPackage.EXPRESSAO: return createEXPRESSAO();
       case GoPackage.LITERAIS_BASICOS: return createLITERAIS_BASICOS();
-      case GoPackage.FUNCAO: return createFUNCAO();
+      case GoPackage.FUNCTION_TYPE: return createFunctionType();
+      case GoPackage.SIGNATURE: return createSignature();
+      case GoPackage.RESULT: return createResult();
+      case GoPackage.PARAMETERS: return createParameters();
       case GoPackage.BLOCK: return createBLOCK();
       case GoPackage.PARAMETERS_LIST: return createPARAMETERS_LIST();
       case GoPackage.PARAMETER: return createPARAMETER();
@@ -163,10 +166,43 @@ public class GoFactoryImpl extends EFactoryImpl implements GoFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public FUNCAO createFUNCAO()
+  public FunctionType createFunctionType()
   {
-    FUNCAOImpl funcao = new FUNCAOImpl();
-    return funcao;
+    FunctionTypeImpl functionType = new FunctionTypeImpl();
+    return functionType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Signature createSignature()
+  {
+    SignatureImpl signature = new SignatureImpl();
+    return signature;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Result createResult()
+  {
+    ResultImpl result = new ResultImpl();
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Parameters createParameters()
+  {
+    ParametersImpl parameters = new ParametersImpl();
+    return parameters;
   }
 
   /**

@@ -26,9 +26,34 @@ public class GoSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (ruleCall.getRule() == grammarAccess.getABRE_PARENTESESRule())
+			return getABRE_PARENTESESToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getFECHA_PARENTESESRule())
+			return getFECHA_PARENTESESToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * ABRE_PARENTESES:
+	 * 	"("
+	 * ;
+	 */
+	protected String getABRE_PARENTESESToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "(";
+	}
+	
+	/**
+	 * FECHA_PARENTESES:
+	 * 	")"
+	 * ;
+	 */
+	protected String getFECHA_PARENTESESToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return ")";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {

@@ -6,13 +6,15 @@ package com.ufcg.compiler.serializer;
 import com.google.inject.Inject;
 import com.ufcg.compiler.go.BLOCK;
 import com.ufcg.compiler.go.EXPRESSAO;
-import com.ufcg.compiler.go.FUNCAO;
+import com.ufcg.compiler.go.FunctionType;
 import com.ufcg.compiler.go.GoDecl;
 import com.ufcg.compiler.go.GoPackage;
 import com.ufcg.compiler.go.IGUAL;
 import com.ufcg.compiler.go.Init;
 import com.ufcg.compiler.go.LITERAIS_BASICOS;
 import com.ufcg.compiler.go.PARAMETER;
+import com.ufcg.compiler.go.Parameters;
+import com.ufcg.compiler.go.Result;
 import com.ufcg.compiler.go.TIPO;
 import com.ufcg.compiler.go.VarDecl;
 import com.ufcg.compiler.services.GoGrammarAccess;
@@ -47,8 +49,8 @@ public class GoSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case GoPackage.EXPRESSAO:
 				sequence_EXPRESSAO(context, (EXPRESSAO) semanticObject); 
 				return; 
-			case GoPackage.FUNCAO:
-				sequence_FUNCAO(context, (FUNCAO) semanticObject); 
+			case GoPackage.FUNCTION_TYPE:
+				sequence_FunctionType(context, (FunctionType) semanticObject); 
 				return; 
 			case GoPackage.GO_DECL:
 				sequence_GoDecl(context, (GoDecl) semanticObject); 
@@ -72,6 +74,19 @@ public class GoSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
+			case GoPackage.PARAMETERS:
+				if (rule == grammarAccess.getParametersRule()) {
+					sequence_PARAMETER_PARAMETERS_LIST_Parameters(context, (Parameters) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getSignatureRule()) {
+					sequence_PARAMETER_PARAMETERS_LIST_Parameters_Signature(context, (Parameters) semanticObject); 
+					return; 
+				}
+				else break;
+			case GoPackage.RESULT:
+				sequence_Result(context, (Result) semanticObject); 
+				return; 
 			case GoPackage.TIPO:
 				sequence_TIPO(context, (TIPO) semanticObject); 
 				return; 
@@ -100,7 +115,7 @@ public class GoSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     EXPRESSAO returns EXPRESSAO
 	 *
 	 * Constraint:
-	 *     (basic=LITERAIS_BASICOS | declFunction=FUNCAO)
+	 *     (basic=LITERAIS_BASICOS | declFunction=FunctionType | variaveis=VarDecl)
 	 */
 	protected void sequence_EXPRESSAO(ISerializationContext context, EXPRESSAO semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -109,19 +124,12 @@ public class GoSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     FUNCAO returns FUNCAO
+	 *     FunctionType returns FunctionType
 	 *
 	 * Constraint:
-	 *     (
-	 *         func='func' 
-	 *         nome=ID 
-	 *         ABRE_PARENTESES=ABRE_PARENTESES 
-	 *         PARAMETERS_LIST=PARAMETERS_LIST? 
-	 *         FECHA_PARENTESES=FECHA_PARENTESES 
-	 *         bloco=BLOCK
-	 *     )
+	 *     (nome=ID assinatura=Signature bloco=BLOCK?)
 	 */
-	protected void sequence_FUNCAO(ISerializationContext context, FUNCAO semanticObject) {
+	protected void sequence_FunctionType(ISerializationContext context, FunctionType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -131,7 +139,7 @@ public class GoSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     GoDecl returns GoDecl
 	 *
 	 * Constraint:
-	 *     (var=VarDecl | func=FUNCAO)
+	 *     (var=VarDecl | func=FunctionType)
 	 */
 	protected void sequence_GoDecl(ISerializationContext context, GoDecl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -209,6 +217,42 @@ public class GoSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (id=ID tipo=Types PARAMETER+=PARAMETER*)
 	 */
 	protected void sequence_PARAMETER_PARAMETERS_LIST(ISerializationContext context, PARAMETER semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Parameters returns Parameters
+	 *
+	 * Constraint:
+	 *     (id=ID tipo=Types PARAMETER+=PARAMETER*)?
+	 */
+	protected void sequence_PARAMETER_PARAMETERS_LIST_Parameters(ISerializationContext context, Parameters semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Signature returns Parameters
+	 *
+	 * Constraint:
+	 *     ((id=ID tipo=Types PARAMETER+=PARAMETER*)? retorno=Result?)
+	 */
+	protected void sequence_PARAMETER_PARAMETERS_LIST_Parameters_Signature(ISerializationContext context, Parameters semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Result returns Result
+	 *
+	 * Constraint:
+	 *     (parametros=Parameters | tipo=Types)
+	 */
+	protected void sequence_Result(ISerializationContext context, Result semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

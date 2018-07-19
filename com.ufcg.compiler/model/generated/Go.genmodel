@@ -29,18 +29,24 @@
     <genClasses ecoreClass="Go.ecore#//EXPRESSAO">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//EXPRESSAO/basic"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//EXPRESSAO/declFunction"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//EXPRESSAO/variaveis"/>
     </genClasses>
     <genClasses ecoreClass="Go.ecore#//LITERAIS_BASICOS">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//LITERAIS_BASICOS/numero"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//LITERAIS_BASICOS/string"/>
     </genClasses>
-    <genClasses ecoreClass="Go.ecore#//FUNCAO">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//FUNCAO/func"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//FUNCAO/nome"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//FUNCAO/ABRE_PARENTESES"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//FUNCAO/PARAMETERS_LIST"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//FUNCAO/FECHA_PARENTESES"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//FUNCAO/bloco"/>
+    <genClasses ecoreClass="Go.ecore#//FunctionType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//FunctionType/nome"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//FunctionType/assinatura"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//FunctionType/bloco"/>
+    </genClasses>
+    <genClasses ecoreClass="Go.ecore#//Signature"/>
+    <genClasses ecoreClass="Go.ecore#//Result">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//Result/parametros"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Go.ecore#//Result/tipo"/>
+    </genClasses>
+    <genClasses ecoreClass="Go.ecore#//Parameters">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//Parameters/retorno"/>
     </genClasses>
     <genClasses ecoreClass="Go.ecore#//BLOCK">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Go.ecore#//BLOCK/listaDeComandos"/>

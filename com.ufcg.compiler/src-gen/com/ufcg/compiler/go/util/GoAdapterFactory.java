@@ -111,9 +111,24 @@ public class GoAdapterFactory extends AdapterFactoryImpl
         return createLITERAIS_BASICOSAdapter();
       }
       @Override
-      public Adapter caseFUNCAO(FUNCAO object)
+      public Adapter caseFunctionType(FunctionType object)
       {
-        return createFUNCAOAdapter();
+        return createFunctionTypeAdapter();
+      }
+      @Override
+      public Adapter caseSignature(Signature object)
+      {
+        return createSignatureAdapter();
+      }
+      @Override
+      public Adapter caseResult(Result object)
+      {
+        return createResultAdapter();
+      }
+      @Override
+      public Adapter caseParameters(Parameters object)
+      {
+        return createParametersAdapter();
       }
       @Override
       public Adapter caseBLOCK(BLOCK object)
@@ -258,16 +273,61 @@ public class GoAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.ufcg.compiler.go.FUNCAO <em>FUNCAO</em>}'.
+   * Creates a new adapter for an object of class '{@link com.ufcg.compiler.go.FunctionType <em>Function Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.ufcg.compiler.go.FUNCAO
+   * @see com.ufcg.compiler.go.FunctionType
    * @generated
    */
-  public Adapter createFUNCAOAdapter()
+  public Adapter createFunctionTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.ufcg.compiler.go.Signature <em>Signature</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.ufcg.compiler.go.Signature
+   * @generated
+   */
+  public Adapter createSignatureAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.ufcg.compiler.go.Result <em>Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.ufcg.compiler.go.Result
+   * @generated
+   */
+  public Adapter createResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.ufcg.compiler.go.Parameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.ufcg.compiler.go.Parameters
+   * @generated
+   */
+  public Adapter createParametersAdapter()
   {
     return null;
   }

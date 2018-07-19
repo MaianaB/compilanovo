@@ -271,13 +271,22 @@ public interface GoPackage extends EPackage
   int EXPRESSAO__DECL_FUNCTION = 1;
 
   /**
+   * The feature id for the '<em><b>Variaveis</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSAO__VARIAVEIS = 2;
+
+  /**
    * The number of structural features of the '<em>EXPRESSAO</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPRESSAO_FEATURE_COUNT = 2;
+  int EXPRESSAO_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link com.ufcg.compiler.go.impl.LITERAIS_BASICOSImpl <em>LITERAIS BASICOS</em>}' class.
@@ -317,23 +326,14 @@ public interface GoPackage extends EPackage
   int LITERAIS_BASICOS_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link com.ufcg.compiler.go.impl.FUNCAOImpl <em>FUNCAO</em>}' class.
+   * The meta object id for the '{@link com.ufcg.compiler.go.impl.FunctionTypeImpl <em>Function Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see com.ufcg.compiler.go.impl.FUNCAOImpl
-   * @see com.ufcg.compiler.go.impl.GoPackageImpl#getFUNCAO()
+   * @see com.ufcg.compiler.go.impl.FunctionTypeImpl
+   * @see com.ufcg.compiler.go.impl.GoPackageImpl#getFunctionType()
    * @generated
    */
-  int FUNCAO = 7;
-
-  /**
-   * The feature id for the '<em><b>Func</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCAO__FUNC = 0;
+  int FUNCTION_TYPE = 7;
 
   /**
    * The feature id for the '<em><b>Nome</b></em>' attribute.
@@ -342,34 +342,16 @@ public interface GoPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FUNCAO__NOME = 1;
+  int FUNCTION_TYPE__NOME = 0;
 
   /**
-   * The feature id for the '<em><b>ABRE PARENTESES</b></em>' attribute.
+   * The feature id for the '<em><b>Assinatura</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCAO__ABRE_PARENTESES = 2;
-
-  /**
-   * The feature id for the '<em><b>PARAMETERS LIST</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCAO__PARAMETERS_LIST = 3;
-
-  /**
-   * The feature id for the '<em><b>FECHA PARENTESES</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCAO__FECHA_PARENTESES = 4;
+  int FUNCTION_TYPE__ASSINATURA = 1;
 
   /**
    * The feature id for the '<em><b>Bloco</b></em>' containment reference.
@@ -378,16 +360,100 @@ public interface GoPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FUNCAO__BLOCO = 5;
+  int FUNCTION_TYPE__BLOCO = 2;
 
   /**
-   * The number of structural features of the '<em>FUNCAO</em>' class.
+   * The number of structural features of the '<em>Function Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCAO_FEATURE_COUNT = 6;
+  int FUNCTION_TYPE_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link com.ufcg.compiler.go.impl.SignatureImpl <em>Signature</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.ufcg.compiler.go.impl.SignatureImpl
+   * @see com.ufcg.compiler.go.impl.GoPackageImpl#getSignature()
+   * @generated
+   */
+  int SIGNATURE = 8;
+
+  /**
+   * The number of structural features of the '<em>Signature</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIGNATURE_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link com.ufcg.compiler.go.impl.ResultImpl <em>Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.ufcg.compiler.go.impl.ResultImpl
+   * @see com.ufcg.compiler.go.impl.GoPackageImpl#getResult()
+   * @generated
+   */
+  int RESULT = 9;
+
+  /**
+   * The feature id for the '<em><b>Parametros</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT__PARAMETROS = 0;
+
+  /**
+   * The feature id for the '<em><b>Tipo</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT__TIPO = 1;
+
+  /**
+   * The number of structural features of the '<em>Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link com.ufcg.compiler.go.impl.ParametersImpl <em>Parameters</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.ufcg.compiler.go.impl.ParametersImpl
+   * @see com.ufcg.compiler.go.impl.GoPackageImpl#getParameters()
+   * @generated
+   */
+  int PARAMETERS = 10;
+
+  /**
+   * The feature id for the '<em><b>Retorno</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETERS__RETORNO = SIGNATURE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Parameters</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETERS_FEATURE_COUNT = SIGNATURE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.ufcg.compiler.go.impl.BLOCKImpl <em>BLOCK</em>}' class.
@@ -397,7 +463,7 @@ public interface GoPackage extends EPackage
    * @see com.ufcg.compiler.go.impl.GoPackageImpl#getBLOCK()
    * @generated
    */
-  int BLOCK = 8;
+  int BLOCK = 11;
 
   /**
    * The feature id for the '<em><b>Lista De Comandos</b></em>' containment reference list.
@@ -425,7 +491,16 @@ public interface GoPackage extends EPackage
    * @see com.ufcg.compiler.go.impl.GoPackageImpl#getPARAMETERS_LIST()
    * @generated
    */
-  int PARAMETERS_LIST = 9;
+  int PARAMETERS_LIST = 12;
+
+  /**
+   * The feature id for the '<em><b>Retorno</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETERS_LIST__RETORNO = PARAMETERS__RETORNO;
 
   /**
    * The number of structural features of the '<em>PARAMETERS LIST</em>' class.
@@ -434,7 +509,7 @@ public interface GoPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PARAMETERS_LIST_FEATURE_COUNT = 0;
+  int PARAMETERS_LIST_FEATURE_COUNT = PARAMETERS_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link com.ufcg.compiler.go.impl.PARAMETERImpl <em>PARAMETER</em>}' class.
@@ -444,7 +519,16 @@ public interface GoPackage extends EPackage
    * @see com.ufcg.compiler.go.impl.GoPackageImpl#getPARAMETER()
    * @generated
    */
-  int PARAMETER = 10;
+  int PARAMETER = 13;
+
+  /**
+   * The feature id for the '<em><b>Retorno</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETER__RETORNO = PARAMETERS_LIST__RETORNO;
 
   /**
    * The feature id for the '<em><b>PARAMETER</b></em>' containment reference list.
@@ -676,6 +760,17 @@ public interface GoPackage extends EPackage
   EReference getEXPRESSAO_DeclFunction();
 
   /**
+   * Returns the meta object for the containment reference '{@link com.ufcg.compiler.go.EXPRESSAO#getVariaveis <em>Variaveis</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Variaveis</em>'.
+   * @see com.ufcg.compiler.go.EXPRESSAO#getVariaveis()
+   * @see #getEXPRESSAO()
+   * @generated
+   */
+  EReference getEXPRESSAO_Variaveis();
+
+  /**
    * Returns the meta object for class '{@link com.ufcg.compiler.go.LITERAIS_BASICOS <em>LITERAIS BASICOS</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -708,80 +803,110 @@ public interface GoPackage extends EPackage
   EAttribute getLITERAIS_BASICOS_String();
 
   /**
-   * Returns the meta object for class '{@link com.ufcg.compiler.go.FUNCAO <em>FUNCAO</em>}'.
+   * Returns the meta object for class '{@link com.ufcg.compiler.go.FunctionType <em>Function Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>FUNCAO</em>'.
-   * @see com.ufcg.compiler.go.FUNCAO
+   * @return the meta object for class '<em>Function Type</em>'.
+   * @see com.ufcg.compiler.go.FunctionType
    * @generated
    */
-  EClass getFUNCAO();
+  EClass getFunctionType();
 
   /**
-   * Returns the meta object for the attribute '{@link com.ufcg.compiler.go.FUNCAO#getFunc <em>Func</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Func</em>'.
-   * @see com.ufcg.compiler.go.FUNCAO#getFunc()
-   * @see #getFUNCAO()
-   * @generated
-   */
-  EAttribute getFUNCAO_Func();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.ufcg.compiler.go.FUNCAO#getNome <em>Nome</em>}'.
+   * Returns the meta object for the attribute '{@link com.ufcg.compiler.go.FunctionType#getNome <em>Nome</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Nome</em>'.
-   * @see com.ufcg.compiler.go.FUNCAO#getNome()
-   * @see #getFUNCAO()
+   * @see com.ufcg.compiler.go.FunctionType#getNome()
+   * @see #getFunctionType()
    * @generated
    */
-  EAttribute getFUNCAO_Nome();
+  EAttribute getFunctionType_Nome();
 
   /**
-   * Returns the meta object for the attribute '{@link com.ufcg.compiler.go.FUNCAO#getABRE_PARENTESES <em>ABRE PARENTESES</em>}'.
+   * Returns the meta object for the containment reference '{@link com.ufcg.compiler.go.FunctionType#getAssinatura <em>Assinatura</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>ABRE PARENTESES</em>'.
-   * @see com.ufcg.compiler.go.FUNCAO#getABRE_PARENTESES()
-   * @see #getFUNCAO()
+   * @return the meta object for the containment reference '<em>Assinatura</em>'.
+   * @see com.ufcg.compiler.go.FunctionType#getAssinatura()
+   * @see #getFunctionType()
    * @generated
    */
-  EAttribute getFUNCAO_ABRE_PARENTESES();
+  EReference getFunctionType_Assinatura();
 
   /**
-   * Returns the meta object for the containment reference '{@link com.ufcg.compiler.go.FUNCAO#getPARAMETERS_LIST <em>PARAMETERS LIST</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>PARAMETERS LIST</em>'.
-   * @see com.ufcg.compiler.go.FUNCAO#getPARAMETERS_LIST()
-   * @see #getFUNCAO()
-   * @generated
-   */
-  EReference getFUNCAO_PARAMETERS_LIST();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.ufcg.compiler.go.FUNCAO#getFECHA_PARENTESES <em>FECHA PARENTESES</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>FECHA PARENTESES</em>'.
-   * @see com.ufcg.compiler.go.FUNCAO#getFECHA_PARENTESES()
-   * @see #getFUNCAO()
-   * @generated
-   */
-  EAttribute getFUNCAO_FECHA_PARENTESES();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.ufcg.compiler.go.FUNCAO#getBloco <em>Bloco</em>}'.
+   * Returns the meta object for the containment reference '{@link com.ufcg.compiler.go.FunctionType#getBloco <em>Bloco</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Bloco</em>'.
-   * @see com.ufcg.compiler.go.FUNCAO#getBloco()
-   * @see #getFUNCAO()
+   * @see com.ufcg.compiler.go.FunctionType#getBloco()
+   * @see #getFunctionType()
    * @generated
    */
-  EReference getFUNCAO_Bloco();
+  EReference getFunctionType_Bloco();
+
+  /**
+   * Returns the meta object for class '{@link com.ufcg.compiler.go.Signature <em>Signature</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Signature</em>'.
+   * @see com.ufcg.compiler.go.Signature
+   * @generated
+   */
+  EClass getSignature();
+
+  /**
+   * Returns the meta object for class '{@link com.ufcg.compiler.go.Result <em>Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Result</em>'.
+   * @see com.ufcg.compiler.go.Result
+   * @generated
+   */
+  EClass getResult();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.ufcg.compiler.go.Result#getParametros <em>Parametros</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Parametros</em>'.
+   * @see com.ufcg.compiler.go.Result#getParametros()
+   * @see #getResult()
+   * @generated
+   */
+  EReference getResult_Parametros();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.ufcg.compiler.go.Result#getTipo <em>Tipo</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Tipo</em>'.
+   * @see com.ufcg.compiler.go.Result#getTipo()
+   * @see #getResult()
+   * @generated
+   */
+  EAttribute getResult_Tipo();
+
+  /**
+   * Returns the meta object for class '{@link com.ufcg.compiler.go.Parameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Parameters</em>'.
+   * @see com.ufcg.compiler.go.Parameters
+   * @generated
+   */
+  EClass getParameters();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.ufcg.compiler.go.Parameters#getRetorno <em>Retorno</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Retorno</em>'.
+   * @see com.ufcg.compiler.go.Parameters#getRetorno()
+   * @see #getParameters()
+   * @generated
+   */
+  EReference getParameters_Retorno();
 
   /**
    * Returns the meta object for class '{@link com.ufcg.compiler.go.BLOCK <em>BLOCK</em>}'.
@@ -1037,6 +1162,14 @@ public interface GoPackage extends EPackage
     EReference EXPRESSAO__DECL_FUNCTION = eINSTANCE.getEXPRESSAO_DeclFunction();
 
     /**
+     * The meta object literal for the '<em><b>Variaveis</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPRESSAO__VARIAVEIS = eINSTANCE.getEXPRESSAO_Variaveis();
+
+    /**
      * The meta object literal for the '{@link com.ufcg.compiler.go.impl.LITERAIS_BASICOSImpl <em>LITERAIS BASICOS</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1063,22 +1196,14 @@ public interface GoPackage extends EPackage
     EAttribute LITERAIS_BASICOS__STRING = eINSTANCE.getLITERAIS_BASICOS_String();
 
     /**
-     * The meta object literal for the '{@link com.ufcg.compiler.go.impl.FUNCAOImpl <em>FUNCAO</em>}' class.
+     * The meta object literal for the '{@link com.ufcg.compiler.go.impl.FunctionTypeImpl <em>Function Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see com.ufcg.compiler.go.impl.FUNCAOImpl
-     * @see com.ufcg.compiler.go.impl.GoPackageImpl#getFUNCAO()
+     * @see com.ufcg.compiler.go.impl.FunctionTypeImpl
+     * @see com.ufcg.compiler.go.impl.GoPackageImpl#getFunctionType()
      * @generated
      */
-    EClass FUNCAO = eINSTANCE.getFUNCAO();
-
-    /**
-     * The meta object literal for the '<em><b>Func</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FUNCAO__FUNC = eINSTANCE.getFUNCAO_Func();
+    EClass FUNCTION_TYPE = eINSTANCE.getFunctionType();
 
     /**
      * The meta object literal for the '<em><b>Nome</b></em>' attribute feature.
@@ -1086,31 +1211,15 @@ public interface GoPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FUNCAO__NOME = eINSTANCE.getFUNCAO_Nome();
+    EAttribute FUNCTION_TYPE__NOME = eINSTANCE.getFunctionType_Nome();
 
     /**
-     * The meta object literal for the '<em><b>ABRE PARENTESES</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Assinatura</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FUNCAO__ABRE_PARENTESES = eINSTANCE.getFUNCAO_ABRE_PARENTESES();
-
-    /**
-     * The meta object literal for the '<em><b>PARAMETERS LIST</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCAO__PARAMETERS_LIST = eINSTANCE.getFUNCAO_PARAMETERS_LIST();
-
-    /**
-     * The meta object literal for the '<em><b>FECHA PARENTESES</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FUNCAO__FECHA_PARENTESES = eINSTANCE.getFUNCAO_FECHA_PARENTESES();
+    EReference FUNCTION_TYPE__ASSINATURA = eINSTANCE.getFunctionType_Assinatura();
 
     /**
      * The meta object literal for the '<em><b>Bloco</b></em>' containment reference feature.
@@ -1118,7 +1227,61 @@ public interface GoPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference FUNCAO__BLOCO = eINSTANCE.getFUNCAO_Bloco();
+    EReference FUNCTION_TYPE__BLOCO = eINSTANCE.getFunctionType_Bloco();
+
+    /**
+     * The meta object literal for the '{@link com.ufcg.compiler.go.impl.SignatureImpl <em>Signature</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.ufcg.compiler.go.impl.SignatureImpl
+     * @see com.ufcg.compiler.go.impl.GoPackageImpl#getSignature()
+     * @generated
+     */
+    EClass SIGNATURE = eINSTANCE.getSignature();
+
+    /**
+     * The meta object literal for the '{@link com.ufcg.compiler.go.impl.ResultImpl <em>Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.ufcg.compiler.go.impl.ResultImpl
+     * @see com.ufcg.compiler.go.impl.GoPackageImpl#getResult()
+     * @generated
+     */
+    EClass RESULT = eINSTANCE.getResult();
+
+    /**
+     * The meta object literal for the '<em><b>Parametros</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT__PARAMETROS = eINSTANCE.getResult_Parametros();
+
+    /**
+     * The meta object literal for the '<em><b>Tipo</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT__TIPO = eINSTANCE.getResult_Tipo();
+
+    /**
+     * The meta object literal for the '{@link com.ufcg.compiler.go.impl.ParametersImpl <em>Parameters</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.ufcg.compiler.go.impl.ParametersImpl
+     * @see com.ufcg.compiler.go.impl.GoPackageImpl#getParameters()
+     * @generated
+     */
+    EClass PARAMETERS = eINSTANCE.getParameters();
+
+    /**
+     * The meta object literal for the '<em><b>Retorno</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PARAMETERS__RETORNO = eINSTANCE.getParameters_Retorno();
 
     /**
      * The meta object literal for the '{@link com.ufcg.compiler.go.impl.BLOCKImpl <em>BLOCK</em>}' class.

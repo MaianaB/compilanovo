@@ -59,12 +59,12 @@ public interface GoDecl extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Func</em>' containment reference.
-   * @see #setFunc(FUNCAO)
+   * @see #setFunc(FunctionType)
    * @see com.ufcg.compiler.go.GoPackage#getGoDecl_Func()
    * @model containment="true"
    * @generated
    */
-  FUNCAO getFunc();
+  FunctionType getFunc();
 
   /**
    * Sets the value of the '{@link com.ufcg.compiler.go.GoDecl#getFunc <em>Func</em>}' containment reference.
@@ -74,6 +74,6 @@ public interface GoDecl extends EObject
    * @see #getFunc()
    * @generated
    */
-  void setFunc(FUNCAO value);
+  void setFunc(FunctionType value);
 
 } // GoDecl
