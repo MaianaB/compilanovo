@@ -11,7 +11,7 @@ GoDecl:
 ;
 
 VarDecl:
-	tipoDecl=TIPO id=Terminals::ID atribuicao=IGUAL expressao=EXPRESSAO
+	tipoDecl=TIPO id=Terminals::ID (type = Types)? atribuicao=IGUAL expressao=EXPRESSAO
 ;
 
 TIPO:
@@ -23,11 +23,15 @@ IGUAL:
 ;
 
 EXPRESSAO:
-	basic=LITERAIS_BASICOS | declFunction=FunctionType | variaveis=VarDecl
+    boolexp = BOOL_EXP | declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS
 ;
 
 LITERAIS_BASICOS:
-	numero=NUMERO | string=STRING_DECL
+	numero=NUMERO | string=STRING_DECL | booleano = BOOLEAN_VALUE
+;
+
+BOOL_EXP:
+	basic=LITERAIS_BASICOS op=BOOL_OP binabasic=BOOLEAN_VALUE | unique_basic=LITERAIS_BASICOS
 ;
 
 //FUNCAO:
@@ -60,7 +64,7 @@ PARAMETER:
 ;
 
 Types:
-	"string" | "int" | "float" | "boolean"
+	"string" | "int" | "float" | "bool"
 ;
 
 terminal NUMERO:
@@ -68,5 +72,17 @@ terminal NUMERO:
 ;
 
 terminal STRING_DECL:
-	'"' (Terminals::ID | NUMERO) '"'
+	'"' (Terminals::ID | NUMERO)* '"'
 ;
+
+BOOL_OP:
+	'&&' | '||'
+;
+
+BOOLEAN_VALUE:
+	"true" | "false"
+;
+
+KEYWORD: BOOLEAN_VALUE;
+
+
