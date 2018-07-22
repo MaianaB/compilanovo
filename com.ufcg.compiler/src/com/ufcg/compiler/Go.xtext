@@ -7,12 +7,32 @@ Init:
 ;
 
 GoDecl:
-	var=VarDecl | func=FunctionType
+	var=VarDecl | func=FunctionType | expressao=EXPRESSAOLINHA
+;
+
+ForDecl:
+	"for" (rangeExp=RangeDecl) "{" exp=EXPRESSAOLINHA "}";
+
+RangeDecl:
+	idList+=IDList ( igual=IGUAL |  op= PONTOSIGUAL ) "range" expr=Terminals::ID
+;
+
+IDList:
+	idList += Terminals::ID |  idList += Terminals::ID "," list+=IDList
 ;
 
 VarDecl:
-	tipoDecl=TIPO id=Terminals::ID (type = Types)? atribuicao=IGUAL expressao=EXPRESSAO
+	signature=SignatureDel ((atribuicao=IGUAL| pront=PONTOSIGUAL)(array=ArrayType)? expressao=EXPRESSAO)?
 ;
+
+SignatureDel:
+	(tipoDecl=TIPO)? id=Terminals::ID (type = Types)?
+;
+
+Assigment:
+	Terminals::ID ("[" qtd = NUMERO "]")? (igual=IGUAL | dois=PONTOSIGUAL) exp=EXPRESSAOLINHA
+;
+
 
 TIPO:
 	variavel="var" | constante="const"
@@ -22,16 +42,33 @@ IGUAL:
 	igual="="
 ;
 
+PONTOSIGUAL:
+	op=":="
+;
+
+EXPRESSAOLINHA:
+	exp=EXPRESSAO explinha=EXPRESSAOLINHA | exp=EXPRESSAO
+;
+
 EXPRESSAO:
-    boolexp = BOOL_EXP | declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS
+    binary_exp = BINARY_EXP | declFunction=FunctionType | assigment=Assigment | variaveis=VarDecl | for=ForDecl |
+    basic=LITERAIS_BASICOS | arrayValue = ArrayValue 
+;
+
+ArrayValue:
+	"{" lit = LiteraisList  "}"
+;
+
+LiteraisList:
+	lit+=LITERAIS_BASICOS | lit+=LITERAIS_BASICOS "," lit += LiteraisList
 ;
 
 LITERAIS_BASICOS:
 	numero=NUMERO | string=STRING_DECL | booleano = BOOLEAN_VALUE
 ;
 
-BOOL_EXP:
-	basic=LITERAIS_BASICOS op=BOOL_OP binabasic=BOOLEAN_VALUE | unique_basic=LITERAIS_BASICOS
+BINARY_EXP:
+	basic=LITERAIS_BASICOS (bool=BOOL_OP | arit= ARIT_OP) binabasic=BINARY_EXP | unique_basic=LITERAIS_BASICOS
 ;
 
 //FUNCAO:
@@ -64,6 +101,14 @@ PARAMETER:
 ;
 
 Types:
+	basic=BasicType | array = ArrayType 
+;
+
+ArrayType:
+	"[" (qtd = NUMERO)? "]"  basic=BasicType
+;
+
+BasicType:
 	"string" | "int" | "float" | "bool"
 ;
 
@@ -77,6 +122,10 @@ terminal STRING_DECL:
 
 BOOL_OP:
 	'&&' | '||'
+;
+
+ARIT_OP:
+	'+' | '-' | '*' | '/' | '^'
 ;
 
 BOOLEAN_VALUE:
