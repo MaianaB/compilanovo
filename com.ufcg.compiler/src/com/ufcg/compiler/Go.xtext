@@ -6,16 +6,36 @@ Init:
 	elements+=GoDecl*
 ;
 
+BOOL_OP:
+	and="&" | or="||"
+;
+
+BOOLEAN_VALUE:
+	=>verdadeiro="true" | =>falso="false"
+;
+
 GoDecl:
 	var=VarDecl | func=FunctionType
 ;
 
 VarDecl:
-	tipoDecl=TIPO id=Terminals::ID (type = Types)? atribuicao=IGUAL expressao=EXPRESSAO
+	tipoDecl=TIPO id=Terminals::ID (type = Types)? atribuicao=IGUAL? expressao=EXPRESSAO?
+;
+
+Assignment:
+	{Assignment} id=Terminals::ID igual=IGUAL expressao=EXPRESSAO
 ;
 
 TIPO:
-	variavel="var" | constante="const"
+	variavel=Var | constante=Const
+;
+
+Var:
+	var="var"
+;
+
+Const:
+	const="const"
 ;
 
 IGUAL:
@@ -23,7 +43,7 @@ IGUAL:
 ;
 
 EXPRESSAO:
-    boolexp = BOOL_EXP | declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS
+    {EXPRESSAO} boolexp = BOOL_EXP | declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS
 ;
 
 LITERAIS_BASICOS:
@@ -64,7 +84,7 @@ PARAMETER:
 ;
 
 Types:
-	"string" | "int" | "float" | "bool"
+	string="string" | int="int" | float="float" | boolean="bool"
 ;
 
 terminal NUMERO:
@@ -74,15 +94,4 @@ terminal NUMERO:
 terminal STRING_DECL:
 	'"' (Terminals::ID | NUMERO)* '"'
 ;
-
-BOOL_OP:
-	'&&' | '||'
-;
-
-BOOLEAN_VALUE:
-	"true" | "false"
-;
-
-KEYWORD: BOOLEAN_VALUE;
-
 
