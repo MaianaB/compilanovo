@@ -15,16 +15,48 @@ BOOLEAN_VALUE:
 ;
 
 GoDecl:
-	var=VarDecl | func=FunctionType
+	var=VarDecl | func=FunctionType | expressao=EXPRESSAOLINHA
+;
+
+ForDecl:
+	"for" (=>clause=ForClause) "{" exp=EXPRESSAOLINHA "}";
+
+//RangeDecl:
+//	idList+=IDList ( igual=IGUAL |  op=PONTOSIGUAL ) "range" expr=Terminals::ID
+//;
+
+ForClause:
+	{ForClause} init=InitStmt? ";" condition=Condition? ";" post=PostStmt? 
+;
+
+InitStmt:
+	decl=GoDecl
+;
+
+PostStmt:
+	decl=GoDecl
+;
+
+Condition:
+	expr1=EXPRESSAO comparador=COMPARISON expr2=EXPRESSAO
+;
+
+IDList:
+	idList += Terminals::ID |  idList += Terminals::ID "," list+=IDList
 ;
 
 VarDecl:
-	tipoDecl=TIPO id=Terminals::ID (type = Types)? atribuicao=IGUAL? expressao=EXPRESSAO?
+	signature=SignatureDel ((atribuicao=IGUAL| pront=PONTOSIGUAL) (array=ArrayType)? expressao=EXPRESSAO)?
+;
+
+SignatureDel:
+	(tipoDecl=TIPO)? id=Terminals::ID (type = Types)?
 ;
 
 Assignment:
-	{Assignment} id=Terminals::ID igual=IGUAL expressao=EXPRESSAO
+	id=Terminals::ID ("[" qtd = NUMERO "]")? (igual=IGUAL | dois=PONTOSIGUAL) expressao=EXPRESSAOLINHA
 ;
+
 
 TIPO:
 	variavel=Var | constante=Const
@@ -42,22 +74,35 @@ IGUAL:
 	igual="="
 ;
 
+PONTOSIGUAL:
+	op=":="
+;
+
+EXPRESSAOLINHA:
+	exp=EXPRESSAO explinha=EXPRESSAOLINHA | exp=EXPRESSAO
+;
+
 EXPRESSAO:
-    {EXPRESSAO} boolexp = BOOL_EXP | declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS
+    {EXPRESSAO} declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS |
+    binary_exp = BINARY_EXP | declFunction=FunctionType | assignment=Assignment | variaveis=VarDecl | for=ForDecl |
+    basic=LITERAIS_BASICOS | arrayValue = ArrayValue 
+;
+
+ArrayValue:
+	"{" lit = LiteraisList  "}"
+;
+
+LiteraisList:
+	lit+=LITERAIS_BASICOS | lit+=LITERAIS_BASICOS "," lit += LiteraisList
 ;
 
 LITERAIS_BASICOS:
 	numero=NUMERO | string=STRING_DECL | booleano = BOOLEAN_VALUE
 ;
 
-BOOL_EXP:
-	basic=LITERAIS_BASICOS op=BOOL_OP binabasic=BOOLEAN_VALUE | unique_basic=LITERAIS_BASICOS
+BINARY_EXP:
+	basic=LITERAIS_BASICOS (bool=BOOL_OP | arit= ARIT_OP) binabasic=BINARY_EXP | unique_basic=LITERAIS_BASICOS
 ;
-
-//FUNCAO:
-//	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST? 
-//	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK
-//;
 
 FunctionType: "func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
 Signature: Parameters retorno=Result?;
@@ -84,6 +129,14 @@ PARAMETER:
 ;
 
 Types:
+	basic=BasicType | array = ArrayType 
+;
+
+ArrayType:
+	"[" (qtd = NUMERO)? "]"  basic=BasicType
+;
+
+BasicType:
 	string="string" | int="int" | float="float" | boolean="bool"
 ;
 
@@ -95,3 +148,11 @@ terminal STRING_DECL:
 	'"' (Terminals::ID | NUMERO)* '"'
 ;
 
+
+ARIT_OP:
+	'+' | '-' | '*' | '/' | '^'
+;
+
+COMPARISON:
+	igual="==" | maiorigualque= ">=" | menorigualque="<=" | maiorque=">" | menorque="<"
+;

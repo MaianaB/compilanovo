@@ -32,12 +32,16 @@ Workflow {
 		language = StandardLanguage {
 			name = "com.ufcg.compiler.Go"
 			fileExtensions = "go"
-
 			serializer = {
 				generateStub = false
 			}
 			validator = {
 				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			}
+			parserGenerator = {
+				options = {
+					backtrack = true
+				}
 			}
 		}
 	}

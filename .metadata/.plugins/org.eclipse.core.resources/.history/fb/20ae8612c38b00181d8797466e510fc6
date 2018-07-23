@@ -1,0 +1,85 @@
+grammar com.ufcg.compiler.Go with org.eclipse.xtext.common.Terminals
+
+generate go "http://www.ufcg.com/compiler/Go"
+
+Init:
+	elements+=GoDecl*
+;
+
+BOOL_OP:
+	and="&" | or="||"
+;
+
+BOOLEAN_VALUE:
+	=>verdadeiro="true" | =>falso="false"
+;
+
+GoDecl:
+	var=VarDecl | func=FunctionType
+;
+
+VarDecl:
+	tipoDecl=TIPO id=Terminals::ID (type = Types)? atribuicao=IGUAL expressao=EXPRESSAO
+;
+
+TIPO:
+	variavel="var" | constante="const"
+;
+
+IGUAL:
+	igual="="
+;
+
+EXPRESSAO:
+    boolexp = BOOL_EXP | declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS
+;
+
+LITERAIS_BASICOS:
+	numero=NUMERO | string=STRING_DECL | booleano = BOOLEAN_VALUE
+;
+
+BOOL_EXP:
+	basic=LITERAIS_BASICOS op=BOOL_OP binabasic=BOOLEAN_VALUE | unique_basic=LITERAIS_BASICOS
+;
+
+//FUNCAO:
+//	func="func" nome=Terminals::ID ABRE_PARENTESES=ABRE_PARENTESES PARAMETERS_LIST=PARAMETERS_LIST? 
+//	FECHA_PARENTESES=FECHA_PARENTESES bloco=BLOCK
+//;
+
+FunctionType: "func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
+Signature: Parameters retorno=Result?;
+Result: {Result} parametros=Parameters | tipo=Types;
+Parameters: {Parameters} ABRE_PARENTESES PARAMETERS_LIST? FECHA_PARENTESES;
+ABRE_PARENTESES:
+	"("
+;
+
+FECHA_PARENTESES:
+	")"
+;
+
+BLOCK:
+	{BLOCK} "{" listaDeComandos+=EXPRESSAO* "}"
+;
+
+PARAMETERS_LIST:
+	PARAMETER ("," PARAMETER+=PARAMETER)*
+;
+
+PARAMETER:
+	id=Terminals::ID tipo=Types
+;
+
+Types:
+	string="string" | int="int" | float="float" | boolean="bool"
+;
+
+terminal NUMERO:
+	Terminals::INT
+;
+
+STRING_DECL:
+	'"' letras+=(Terminals::ID | NUMERO)* '"'
+;
+
