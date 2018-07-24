@@ -19,11 +19,11 @@ GoDecl:
 ;
 
 ForDecl:
-	"for" (=>clause=ForClause) "{" exp=EXPRESSAOLINHA "}";
+	"for" (=>clause=ForClause | range=RangeDecl) "{" comandos=GoDecl? "}";
 
-//RangeDecl:
-//	idList+=IDList ( igual=IGUAL |  op=PONTOSIGUAL ) "range" expr=Terminals::ID
-//;
+RangeDecl:
+	idList+=IDList ( igual=IGUAL |  op=PONTOSIGUAL ) "range" expr=Terminals::ID
+;
 
 ForClause:
 	{ForClause} init=InitStmt? ";" condition=Condition? ";" post=PostStmt? 
@@ -34,7 +34,7 @@ InitStmt:
 ;
 
 PostStmt:
-	decl=GoDecl
+	decl=GoDecl | =>art=ARIT_EXPR
 ;
 
 Condition:
@@ -42,11 +42,11 @@ Condition:
 ;
 
 IDList:
-	idList += Terminals::ID |  idList += Terminals::ID "," list+=IDList
+	idList += Terminals::ID |  idList += Terminals::ID vir+=VIRGULA list+=IDList
 ;
 
 VarDecl:
-	signature=SignatureDel ((atribuicao=IGUAL| pront=PONTOSIGUAL) (array=ArrayType)? expressao=EXPRESSAO)?
+	signature=SignatureDel (atribuicao=IGUAL| pront=PONTOSIGUAL) ((array=ArrayType)? expressao=EXPRESSAO)?
 ;
 
 SignatureDel:
@@ -85,7 +85,11 @@ EXPRESSAOLINHA:
 EXPRESSAO:
     {EXPRESSAO} declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS |
     binary_exp = BINARY_EXP | declFunction=FunctionType | assignment=Assignment | variaveis=VarDecl | for=ForDecl |
-    basic=LITERAIS_BASICOS | arrayValue = ArrayValue 
+    basic=LITERAIS_BASICOS | arrayValue = ArrayValue  | cham=Chamada | return=Return
+;
+
+Return:
+	"return" exp=EXPRESSAO
 ;
 
 ArrayValue:
@@ -93,7 +97,7 @@ ArrayValue:
 ;
 
 LiteraisList:
-	lit+=LITERAIS_BASICOS | lit+=LITERAIS_BASICOS "," lit += LiteraisList
+	lit+=LITERAIS_BASICOS | lit+=LITERAIS_BASICOS vir=VIRGULA lit += LiteraisList
 ;
 
 LITERAIS_BASICOS:
@@ -105,9 +109,8 @@ BINARY_EXP:
 ;
 
 FunctionType: "func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
-Signature: Parameters retorno=Result?;
-Result: {Result} parametros=Parameters | tipo=Types;
-Parameters: {Parameters} ABRE_PARENTESES PARAMETERS_LIST? FECHA_PARENTESES;
+Signature: {Signature} params=Parameters retorno=Types?;
+Parameters: {Parameters} ABRE_PARENTESES params=PARAMETERS_LIST? FECHA_PARENTESES;
 ABRE_PARENTESES:
 	"("
 ;
@@ -121,15 +124,15 @@ BLOCK:
 ;
 
 PARAMETERS_LIST:
-	PARAMETER ("," PARAMETER+=PARAMETER)*
+	{PARAMETERS_LIST} params+=PARAMETER (vir+=VIRGULA params+=PARAMETER)*
 ;
 
 PARAMETER:
-	id=Terminals::ID tipo=Types
+	{PARAMETER} basico=LITERAIS_BASICOS | id=Terminals::ID tipo=Types?
 ;
 
 Types:
-	basic=BasicType | array = ArrayType 
+	{Types} basic=BasicType | array = ArrayType 
 ;
 
 ArrayType:
@@ -140,6 +143,22 @@ BasicType:
 	string="string" | int="int" | float="float" | boolean="bool"
 ;
 
+VarCall:
+	=>id=Terminals::ID
+;
+
+FunctionCall:
+	id=Terminals::ID "(" params=PARAMETERS_LIST? ")"
+;
+
+Chamada:
+	cham+=FunctionCall | cham+=VarCall | cham+=LITERAIS_BASICOS
+;
+
+terminal VIRGULA:
+	","
+;
+
 terminal NUMERO:
 	Terminals::INT
 ;
@@ -148,9 +167,18 @@ terminal STRING_DECL:
 	'"' (Terminals::ID | NUMERO)* '"'
 ;
 
+ARIT_EXPR:
+	(num1=NUMERO | var1=VarCall) op=ARIT_OP (num2=NUMERO | var2=VarCall) |
+	 (num=NUMERO | var=VarCall) atr=ARIT_ATR | atr=ARIT_ATR (num=NUMERO | var=VarCall)
+;
+
 
 ARIT_OP:
 	'+' | '-' | '*' | '/' | '^'
+;
+
+ARIT_ATR:
+	 "++" | "--"
 ;
 
 COMPARISON:
