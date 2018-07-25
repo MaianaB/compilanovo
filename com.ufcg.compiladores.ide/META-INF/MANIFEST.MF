@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.ufcg.compiladores.ide
+Bundle-ManifestVersion: 2
+Bundle-Name: com.ufcg.compiladores.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: com.ufcg.compiladores.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: com.ufcg.compiladores,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.ufcg.compiladores.ide.contentassist.antlr,
+ com.ufcg.compiladores.ide.contentassist.antlr.internal
+

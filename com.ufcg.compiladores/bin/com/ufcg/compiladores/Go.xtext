@@ -1,0 +1,198 @@
+grammar com.ufcg.compiladores.Go with org.eclipse.xtext.common.Terminals
+
+generate go "http://www.ufcg.com/compiler/Go"
+
+Init:
+	elements+=GoDecl*
+;
+
+BOOLEAN_VALUE:
+	=>verdadeiro="true" | =>falso="false"
+;
+
+GoDecl:
+	var=VarDecl | func=FunctionType | expressao=EXPRESSAOLINHA
+;
+
+ForDecl:
+	"for" (=>clause=ForClause | range=RangeDecl) "{" comandos=GoDecl? "}";
+
+RangeDecl:
+	{RangeDecl} idList+=IDList ( igual=IGUAL |  op=PONTOSIGUAL ) "range" (variavel=VarCall | func=FunctionCall)
+;
+
+ForClause:
+	{ForClause} init=InitStmt? ";" condition=Condition? ";" post=PostStmt? 
+;
+
+InitStmt:
+	varDecl=VarDecl
+;
+
+PostStmt:
+	=>art=ARIT_EXPR
+;
+
+Condition:
+	expr1=EXPRESSAO (comparador=COMPARISON) expr2=EXPRESSAO
+;
+
+IDList:
+	idList += Terminals::ID |  idList += Terminals::ID vir+=VIRGULA list+=IDList
+;
+
+VarDecl:
+	signature=SignatureDel (atribuicao=IGUAL| pront=PONTOSIGUAL)? ((array=ArrayType)? expressao=EXPRESSAOLINHA)?
+;
+
+SignatureDel:
+	(tipoDecl=TIPO) id=Terminals::ID (type = Types)?
+;
+
+Assignment:
+	id=Terminals::ID ("[" qtd = NUMERO "]")? (igual=IGUAL | dois=PONTOSIGUAL) expressao=EXPRESSAOLINHA
+;
+
+
+TIPO:
+	variavel=Var | constante=Const
+;
+
+Var:
+	var="var"
+;
+
+Const:
+	const="const"
+;
+
+IGUAL:
+	igual="="
+;
+
+PONTOSIGUAL:
+	op=":="
+;
+
+EXPRESSAOLINHA:
+	exp=EXPRESSAO explinha=EXPRESSAOLINHA | exp=EXPRESSAO
+;
+
+EXPRESSAO:
+    {EXPRESSAO} declFunction=FunctionType | binary_exp = BINARY_EXP | basic=LITERAIS_BASICOS |
+     assignment=Assignment | for=ForDecl | arrayValue = ArrayValue | variaveis=VarDecl | cham=Chamada | if=IfStmt
+;
+
+ReturnStmt:
+	{ReturnStmt} "return" (basic=LITERAIS_BASICOS | func=FunctionCall | idVar=VarCall)?
+;
+
+ArrayValue:
+	"{" lit = LiteraisList  "}"
+;
+
+LiteraisList:
+	lit+=LITERAIS_BASICOS | lit+=LITERAIS_BASICOS vir=VIRGULA lit += LiteraisList
+;
+
+LITERAIS_BASICOS:
+	numero=NUMERO | string=STRING_DECL | booleano = BOOLEAN_VALUE
+;
+
+BINARY_EXP:
+	{BINARY_EXP} (basic+=LITERAIS_BASICOS | varCal += VarCall | func+=FunctionCall) (bool=BOOL_OP | arit= ARIT_OP) (basic+=LITERAIS_BASICOS | varCal += VarCall | func+=FunctionCall)
+;
+
+FunctionType: "func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
+Signature: {Signature} params=Parameters retorno=Types?;
+Parameters: {Parameters} ABRE_PARENTESES params=PARAMETERS_LIST? FECHA_PARENTESES;
+ABRE_PARENTESES:
+	"("
+;
+
+FECHA_PARENTESES:
+	")"
+;
+
+IfCondition:
+	"if" cond=Condition "{" then+=EXPRESSAO* "}"
+ ;
+    
+ElseIfCondition:
+	(=>"else" IfCondition);
+	
+ElseCondition:
+	{ElseCondition} (=>"else" "{" then+=EXPRESSAO* "}"); 
+
+BLOCK:
+	{BLOCK} "{" listaDeComandos+=EXPRESSAO* retorno=ReturnStmt?"}"
+;
+
+PARAMETERS_LIST:
+	{PARAMETERS_LIST} params+=PARAMETER (vir+=VIRGULA params+=PARAMETER)*
+;
+
+PARAMETER:
+	{PARAMETER} basico=LITERAIS_BASICOS | id=Terminals::ID tipo=Types?
+;
+
+Types:
+	{Types} basic=BasicType | array = ArrayType 
+;
+
+ArrayType:
+	"[" (qtd = NUMERO)? "]"  basic=BasicType
+;
+
+BasicType:
+	string="string" | int="int" | float="float" | boolean="bool"
+;
+
+VarCall:
+	=>id=Terminals::ID
+;
+
+FunctionCall:
+	id=Terminals::ID "(" params=PARAMETERS_LIST? ")"
+;
+
+Chamada:
+	cham+=FunctionCall | cham+=VarCall | cham+=LITERAIS_BASICOS
+;
+
+BOOL_OP:
+	{BOOL_OP} =>'&&' | {BOOL_OP} =>'||'
+;
+
+terminal VIRGULA:
+	","
+;
+
+terminal NUMERO:
+	Terminals::INT
+;
+
+terminal STRING_DECL:
+	'"' (Terminals::ID | NUMERO)* '"'
+;
+
+ARIT_EXPR:
+	(num1=NUMERO | var1=VarCall) op=ARIT_OP (num2=NUMERO | var2=VarCall) |
+	 (num=NUMERO | var=VarCall) atr=ARIT_ATR | atr=ARIT_ATR (num=NUMERO | var=VarCall)
+;
+
+IfStmt:
+	(if=IfCondition (elseif+=ElseIfCondition)*(else=ElseCondition)?);
+
+
+ARIT_OP:
+	'+' | '-' | '*' | '/' | '^'
+;
+
+ARIT_ATR:
+	 "++" | "--"
+;
+
+COMPARISON:
+	igual="==" | maiorigualque= ">=" | menorigualque="<=" | maiorque=">" | menorque="<"
+;

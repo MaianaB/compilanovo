@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: com.ufcg.compiladores
+Bundle-ManifestVersion: 2
+Bundle-Name: com.ufcg.compiladores
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: com.ufcg.compiladores; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.antlr.runtime,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.eclipse.xtend.lib;bundle-version="2.14.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.ufcg.compiladores,
+ com.ufcg.compiladores.parser.antlr,
+ com.ufcg.compiladores.validation,
+ com.ufcg.compiladores.go.util,
+ com.ufcg.compiladores.scoping,
+ com.ufcg.compiladores.go,
+ com.ufcg.compiladores.serializer,
+ com.ufcg.compiladores.parser.antlr.internal,
+ com.ufcg.compiladores.generator,
+ com.ufcg.compiladores.services,
+ com.ufcg.compiladores.go.impl
+Import-Package: org.apache.log4j
