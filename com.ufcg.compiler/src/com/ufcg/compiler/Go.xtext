@@ -2,6 +2,7 @@ grammar com.ufcg.compiler.Go with org.eclipse.xtext.common.Terminals
 
 generate go "http://www.ufcg.com/compiler/Go"
 
+
 Init:
 	elements+=GoDecl*
 ;
@@ -79,8 +80,8 @@ EXPRESSAOLINHA:
 ;
 
 EXPRESSAO:
-    {EXPRESSAO} declFunction=FunctionType | variaveis=VarDecl | basic=LITERAIS_BASICOS |
-    binary_exp = BINARY_EXP | declFunction=FunctionType | assignment=Assignment | variaveis=VarDecl | for=ForDecl 
+    {EXPRESSAO} declFunction=FunctionType | binary_exp = BINARY_EXP | basic=LITERAIS_BASICOS |
+    declFunction=FunctionType | assignment=Assignment | variaveis=VarDecl | for=ForDecl 
     | arrayValue = ArrayValue  | cham=Chamada
 ;
 
@@ -101,7 +102,7 @@ LITERAIS_BASICOS:
 ;
 
 BINARY_EXP:
-	{BINARY_EXP} basic=LITERAIS_BASICOS (bool=BOOL_OP | arit= ARIT_OP) binabasic=BINARY_EXP
+	{BINARY_EXP} basic=LITERAIS_BASICOS (bool=BOOL_OP | arit= ARIT_OP) binabasic=BINARY_EXP | unique_basic=LITERAIS_BASICOS
 ;
 
 FunctionType: "func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
@@ -184,3 +185,4 @@ ARIT_ATR:
 COMPARISON:
 	igual="==" | maiorigualque= ">=" | menorigualque="<=" | maiorque=">" | menorque="<"
 ;
+
