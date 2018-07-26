@@ -80,7 +80,7 @@ EXPRESSAOLINHA:
 
 EXPRESSAO:
     {EXPRESSAO} declFunction=FunctionType | binary_exp = BINARY_EXP | basic=LITERAIS_BASICOS |
-     assignment=Assignment | for=ForDecl | arrayValue = ArrayValue | variaveis=VarDecl | cham=Chamada | if=IfStmt
+     assignment=Assignment | forDecl=ForDecl | arrayValue = ArrayValue | variaveis=VarDecl | cham=Chamada | if=IfStmt
 ;
 
 ReturnStmt:
