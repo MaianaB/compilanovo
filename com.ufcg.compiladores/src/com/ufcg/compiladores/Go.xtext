@@ -42,7 +42,7 @@ IDList:
 ;
 
 VarDecl:
-	signature=SignatureDel (atribuicao=IGUAL| pront=PONTOSIGUAL)? ((array=ArrayType)? expressao=EXPRESSAOLINHA)?
+	signature=SignatureDel (atribuicao=IGUAL| pront=PONTOSIGUAL)? ((array=ArrayType)? expressao=Chamada)?
 ;
 
 SignatureDel:
@@ -50,7 +50,7 @@ SignatureDel:
 ;
 
 Assignment:
-	id=Terminals::ID ("[" qtd = NUMERO "]")? (igual=IGUAL | dois=PONTOSIGUAL) expressao=EXPRESSAOLINHA
+	id=Terminals::ID ("[" qtd = NUMERO "]")? (igual=IGUAL | dois=PONTOSIGUAL) expressao=Chamada
 ;
 
 
@@ -157,7 +157,7 @@ FunctionCall:
 ;
 
 Chamada:
-	cham+=FunctionCall | cham+=VarCall | cham+=LITERAIS_BASICOS
+	 =>bin=BINARY_EXP | array=ArrayValue | chamFunc=FunctionCall | chamVar=VarCall | lit=LITERAIS_BASICOS
 ;
 
 BOOL_OP:
