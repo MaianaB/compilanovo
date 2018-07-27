@@ -172,7 +172,6 @@ class GoValidator extends AbstractGoValidator {
 					error("Não é possível usar o tipo " + tipoDaFuncao + " numa variável do tipo " + tipoDeclarado, null)
 				}
 			} else if (chamada.chamVar !== null) {
-				error("agora vai" + (chamada.chamVar !== null), null)
 				var String tipoDaVar = getTipoVariavel(variaveis.get(chamada.chamVar))
 				if (!tipoDeclarado.equals(tipoDaVar)) {
 					error("Não é possível usar o tipo " + tipoDaVar + " numa variável do tipo " + tipoDeclarado, null)
