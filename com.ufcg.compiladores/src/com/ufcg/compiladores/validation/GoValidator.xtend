@@ -26,6 +26,7 @@ import com.ufcg.compiladores.go.RangeDecl
 import com.ufcg.compiladores.go.ForDecl
 import com.ufcg.compiladores.go.ForClause
 import com.ufcg.compiladores.go.BINARY_EXP
+import com.ufcg.compiladores.go.Chamada
 
 /**
  * This class contains custom validation rules. 
@@ -123,6 +124,30 @@ class GoValidator extends AbstractGoValidator {
 		if (varDecl.expressao === null) {
 			warning("Variável declarada sem inicialização", GoPackage.Literals.VAR_DECL__EXPRESSAO)
 		}
+		
+		if (varDecl.expressao !== null) {
+			var Chamada chamada = varDecl.expressao
+			var String tipoDeclarado = getTipo(varDecl.signature.type.basic)
+			if (chamada.chamFunc !== null) {
+				var FunctionType funcao = functions.get(chamada.chamFunc.id)
+				var String tipoDaFuncao = getTipo(funcao.assinatura.retorno.basic)
+				if (!tipoDeclarado.equals(tipoDaFuncao)) {
+					error("Não é possível usar o tipo " + tipoDaFuncao + " numa variável do tipo " + tipoDeclarado, null)
+				}
+			} else if (chamada.chamVar !== null) {
+				var String tipoDaVar = getTipo(variaveis.get(chamada.chamVar).signature.type.basic)
+				error(tipoDeclarado + tipoDaVar, null)
+				if (!tipoDeclarado.equals(tipoDaVar)) {
+					error("Não é possível usar o tipo " + tipoDaVar + " numa variável do tipo " + tipoDeclarado, null)
+				}
+			} else if (tipoDeclarado.equals("bool") && chamada.lit.booleano === null) {
+				error("Não é possível usar o tipo passado numa variável do tipo " + tipoDeclarado, null)
+			} else if (chamada.lit.numero === null && tipoDeclarado.equals("int")) {
+				error("Não é possível usar o tipo passado numa variável do tipo " + tipoDeclarado, null)
+			} else if (chamada.lit.string === null && tipoDeclarado.equals("string")) {
+				error("Não é possível usar o tipo passado numa variável do tipo " + tipoDeclarado, null)
+			}
+		}
 	}
 	
 	@Check
@@ -212,27 +237,55 @@ class GoValidator extends AbstractGoValidator {
 	
 	@Check
 	def checaBinaryExpr(BINARY_EXP bin) {
-		if (bin.basic !== null) {
-			for (LITERAIS_BASICOS lit : bin.basic) {
-				if (lit.booleano === null) {
-					error("Tipo do literal deve ser bool", null)
+		
+		if (bin.arit !== null) {
+			if (bin.basic !== null) {
+				for (LITERAIS_BASICOS lit : bin.basic) {
+					if (lit.numero === null) {
+						error("Tipo do literal deve ser int", null)
+					}
+				}
+			} else if (bin.varCal !== null) {
+				for (VarCall call : bin.varCal) {
+					var VarDecl variavel = variaveis.get(call.id)
+					if (variavel.signature.type.basic.int === null) {
+						error("Tipo da variável deve ser int", null)
+					}
+				}
+			} else if (bin.func !== null) {
+				for (FunctionCall func : bin.func) {
+					var FunctionType function = functions.get(func.id)
+					
+					if (function.assinatura.retorno.basic.int === null) {
+						error("Tipo de retorno da função deve ser int", null)
+					}
 				}
 			}
-		} else if (bin.varCal !== null) {
-			for (VarCall call : bin.varCal) {
-				var VarDecl variavel = variaveis.get(call.id)
-				if (variavel.signature.type.basic.boolean === null) {
-					error("Tipo da variável deve ser bool", null)
+		}
+		
+		if (bin.bool !== null) {
+			if (bin.basic !== null) {
+				for (LITERAIS_BASICOS lit : bin.basic) {
+					if (lit.booleano === null) {
+						error("Tipo do literal deve ser bool", null)
+					}
 				}
-			}
-		} else if (bin.func !== null) {
-			for (FunctionCall func : bin.func) {
-				var FunctionType function = functions.get(func.id)
-				
-				if (function.assinatura.retorno.basic.boolean === null) {
-					error("Tipo de retorno da função deve ser bool", null)
+			} else if (bin.varCal !== null) {
+				for (VarCall call : bin.varCal) {
+					var VarDecl variavel = variaveis.get(call.id)
+					if (variavel.signature.type.basic.boolean === null) {
+						error("Tipo da variável deve ser bool", null)
+					}
 				}
-			}
+			} else if (bin.func !== null) {
+				for (FunctionCall func : bin.func) {
+					var FunctionType function = functions.get(func.id)
+					
+					if (function.assinatura.retorno.basic.boolean === null) {
+						error("Tipo de retorno da função deve ser bool", null)
+					}
+				}
+			}	
 		}
 	}
 	
