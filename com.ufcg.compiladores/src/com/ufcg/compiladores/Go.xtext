@@ -15,7 +15,7 @@ GoDecl:
 ;
 
 ForDecl:
-	"for" (=>clause=ForClause | range=RangeDecl) "{" comandos=GoDecl? "}";
+	"for" (=>clause=ForClause | range=RangeDecl)? "{" (comandos+=GoDecl*)? "}";
 
 RangeDecl:
 	{RangeDecl} idList+=IDList ( igual=IGUAL |  op=PONTOSIGUAL ) "range" (variavel=VarCall | func=FunctionCall)
@@ -41,16 +41,12 @@ IDList:
 	idList += Terminals::ID |  idList += Terminals::ID vir+=VIRGULA list+=IDList
 ;
 
-VarDecl:
-	signature=SignatureDel (atribuicao=IGUAL| pront=PONTOSIGUAL)? ((array=ArrayType)? expressao=EXPRESSAOLINHA)?
-;
-
 SignatureDel:
 	(tipoDecl=TIPO) id=Terminals::ID (type = Types)?
 ;
 
 Assignment:
-	id=Terminals::ID ("[" qtd = NUMERO "]")? (igual=IGUAL | dois=PONTOSIGUAL) expressao=EXPRESSAOLINHA
+	id=Terminals::ID ("[" qtd = NUMERO "]")? (igual=IGUAL | dois=PONTOSIGUAL) expressao=Chamada
 ;
 
 
@@ -100,7 +96,7 @@ LITERAIS_BASICOS:
 ;
 
 BINARY_EXP:
-	{BINARY_EXP} (basic+=LITERAIS_BASICOS | varCal += VarCall | func+=FunctionCall) (bool=BOOL_OP | arit= ARIT_OP) (basic+=LITERAIS_BASICOS | varCal += VarCall | func+=FunctionCall)
+	{BINARY_EXP} (basic+=LITERAIS_BASICOS | varCal += VarCall | func+=FunctionCall) (bool=BOOL_OP | arit= ARIT_OP) bin=BINARY_EXP | (basic+=LITERAIS_BASICOS | varCal += VarCall | func+=FunctionCall)
 ;
 
 FunctionType: "func" nome=Terminals::ID assinatura=Signature bloco=BLOCK?;
@@ -115,7 +111,7 @@ FECHA_PARENTESES:
 ;
 
 IfCondition:
-	"if" cond=Condition "{" then+=EXPRESSAO* "}"
+	"if" (cond=Condition| bool=BOOLEAN_VALUE) "{" then+=EXPRESSAO* "}"
  ;
     
 ElseIfCondition:
@@ -157,7 +153,7 @@ FunctionCall:
 ;
 
 Chamada:
-	cham+=FunctionCall | cham+=VarCall | cham+=LITERAIS_BASICOS
+	 =>bin=BINARY_EXP | array=ArrayValue | chamFunc=FunctionCall | chamVar=VarCall | lit=LITERAIS_BASICOS
 ;
 
 BOOL_OP:
@@ -195,4 +191,17 @@ ARIT_ATR:
 
 COMPARISON:
 	igual="==" | maiorigualque= ">=" | menorigualque="<=" | maiorque=">" | menorque="<"
+;
+
+
+VarDecl:
+	varPontos=VarDeclPontosIgual | varIgual=VarDeclIgual
+;
+
+VarDeclIgual:
+	signature=SignatureDel (atribuicao=IGUAL)? ((array=ArrayType)? expressao=Chamada)?
+;
+
+VarDeclPontosIgual:
+	id=Terminals::ID pront=PONTOSIGUAL ((array=ArrayType)? expressao=Chamada)
 ;

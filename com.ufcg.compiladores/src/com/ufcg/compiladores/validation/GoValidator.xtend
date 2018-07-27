@@ -39,7 +39,7 @@ class GoValidator extends AbstractGoValidator {
   
  	private var functions = <String, FunctionType>newHashMap();
  	
- 		def getTipo(BasicType lit) {
+ 	def getTipo(BasicType lit) {
 		if (lit.boolean !== null) {
 			return "bool"
 		} else if (lit.int !== null) {
@@ -100,7 +100,7 @@ class GoValidator extends AbstractGoValidator {
 						if (variavel === null) {
 							error("Variável não declarada.", null)
 						} else {
-							tipoInserido = getTipo(variavel.signature.type.basic)
+							tipoInserido = getTipoVariavel(variavel);
 						}
 					}
 					
@@ -112,16 +112,78 @@ class GoValidator extends AbstractGoValidator {
 			}
 	}
 	
+	def getTipoVariavel(VarDecl variavel){
+		if(variavel.varIgual != null){
+			return getTipo(variavel.varIgual.signature.type.basic);
+		} else {
+			return getTipoChamada(variavel.varPontos.expressao);
+		}
+	}
+	
+	def getIdVariavel(VarDecl variavel){
+		if(variavel.varIgual != null){
+			return variavel.varIgual.signature.id;
+		} else {
+			return variavel.varPontos.id;
+		}
+	}
+	
+	def getTipoChamada(Chamada ch){
+		if(ch.lit != null){
+			return getTipoLiteral(ch.lit)
+		} 
+		if(ch.chamFunc != null){
+			var FunctionType funcao = functions.get(ch.chamFunc.id)
+			return getTipo(funcao.assinatura.retorno.basic)
+		}
+		//Os outros tipos	
+	}
+	
+	def getTipoLiteral(LITERAIS_BASICOS lit){
+		if (lit.booleano !== null) {
+			return "bool"
+		} else if (lit.numero !== null) {
+			return "int"
+		} else if (lit.string !== null) {
+			return "string"
+		}
+	}
+	
 	@Check
 	def checaVariavelDeclaradaSemInicializar(VarDecl varDecl) {
-		if (!variaveis.containsKey(varDecl.signature.id)) {
-			variaveis.put(varDecl.signature.id, varDecl)
+		if (!variaveis.containsKey(getIdVariavel(varDecl))) {
+			variaveis.put(getIdVariavel(varDecl), varDecl)
 		} else {
 			error("Variável já declarada", null)
 		}
 		
-		if (varDecl.expressao === null) {
-			warning("Variável declarada sem inicialização", GoPackage.Literals.VAR_DECL__EXPRESSAO)
+		if (varDecl.varPontos!= null && varDecl.varPontos.expressao === null) {
+			error("Variável declarada sem inicialização", GoPackage.Literals.VAR_DECL_PONTOS_IGUAL__EXPRESSAO)
+		}		
+		if (varDecl.varIgual.expressao !== null || varDecl.varPontos.expressao !== null) {
+			var Chamada chamada;
+			if(varDecl.varPontos!== null){ chamada = varDecl.varPontos.expressao;}
+			else{chamada = varDecl.varIgual.expressao}
+			var String tipoDeclarado = getTipoVariavel(varDecl)
+			if (chamada.chamFunc !== null) {
+				var FunctionType funcao = functions.get(chamada.chamFunc.id)
+				var String tipoDaFuncao = getTipo(funcao.assinatura.retorno.basic)
+				if (!tipoDeclarado.equals(tipoDaFuncao)) {
+					error("Não é possível usar o tipo " + tipoDaFuncao + " numa variável do tipo " + tipoDeclarado, null)
+				}
+			} else if (chamada.chamVar !== null) {
+				error("agora vai" + (chamada.chamVar !== null), null)
+				var String tipoDaVar = getTipoVariavel(variaveis.get(chamada.chamVar))
+				if (!tipoDeclarado.equals(tipoDaVar)) {
+					error("Não é possível usar o tipo " + tipoDaVar + " numa variável do tipo " + tipoDeclarado, null)
+				}
+			} else if (tipoDeclarado.equals("bool") && chamada.lit.booleano === null) {
+				error("Não é possível usar o tipo passado numa variável do tipo " + tipoDeclarado, null)
+			} else if (chamada.lit.numero === null && tipoDeclarado.equals("int")) {
+				error("Não é possível usar o tipo passado numa variável do tipo " + tipoDeclarado, null)
+			} else if (chamada.lit.string === null && tipoDeclarado.equals("string")) {
+				error("Não é possível usar o tipo passado numa variável do tipo " + tipoDeclarado, null)
+			}
 		}
 	}
 	
@@ -155,7 +217,7 @@ class GoValidator extends AbstractGoValidator {
 						tipos.add("string")
 					}
 				} else {
-					tipos.add(getTipo(variaveis.get(parametro.id).signature.type.basic))
+					tipos.add(getTipoVariavel(variaveis.get(parametro.id)))
 				}
 			}
 		}
@@ -196,7 +258,7 @@ class GoValidator extends AbstractGoValidator {
 	
 	@Check
 	def checaAtribuicaoAConstante(Assignment a) {
-		if (isVarDeclarada(a.id) && (variaveis.get(a.id).signature.tipoDecl instanceof Const)) {
+		if (isVarDeclarada(a.id) && (variaveis.get(a.id).varIgual.signature.tipoDecl instanceof Const)) {
 			error("Não é possível reatribuir o valor de uma constante", null)
 		}
 	}
@@ -212,34 +274,62 @@ class GoValidator extends AbstractGoValidator {
 	
 	@Check
 	def checaBinaryExpr(BINARY_EXP bin) {
-		if (bin.basic !== null) {
-			for (LITERAIS_BASICOS lit : bin.basic) {
-				if (lit.booleano === null) {
-					error("Tipo do literal deve ser bool", null)
+		
+		if (bin.arit !== null) {
+			if (bin.basic !== null) {
+				for (LITERAIS_BASICOS lit : bin.basic) {
+					if (lit.numero === null) {
+						error("Tipo do literal deve ser int", null)
+					}
+				}
+			} else if (bin.varCal !== null) {
+				for (VarCall call : bin.varCal) {
+					var VarDecl variavel = variaveis.get(call.id)
+					if (getTipoVariavel(variavel) !== "int") {
+						error("Tipo da variável deve ser int", null)
+					}
+				}
+			} else if (bin.func !== null) {
+				for (FunctionCall func : bin.func) {
+					var FunctionType function = functions.get(func.id)
+					
+					if (function.assinatura.retorno.basic.int === null) {
+						error("Tipo de retorno da função deve ser int", null)
+					}
 				}
 			}
-		} else if (bin.varCal !== null) {
-			for (VarCall call : bin.varCal) {
-				var VarDecl variavel = variaveis.get(call.id)
-				if (variavel.signature.type.basic.boolean === null) {
-					error("Tipo da variável deve ser bool", null)
+		}
+		
+		if (bin.bool !== null) {
+			if (bin.basic !== null) {
+				for (LITERAIS_BASICOS lit : bin.basic) {
+					if (lit.booleano === null) {
+						error("Tipo do literal deve ser bool", null)
+					}
 				}
-			}
-		} else if (bin.func !== null) {
-			for (FunctionCall func : bin.func) {
-				var FunctionType function = functions.get(func.id)
-				
-				if (function.assinatura.retorno.basic.boolean === null) {
-					error("Tipo de retorno da função deve ser bool", null)
+			} else if (bin.varCal !== null) {
+				for (VarCall call : bin.varCal) {
+					var VarDecl variavel = variaveis.get(call.id)
+					if (getTipoVariavel(variavel) !== "bool") {
+						error("Tipo da variável deve ser bool", null)
+					}
 				}
-			}
+			} else if (bin.func !== null) {
+				for (FunctionCall func : bin.func) {
+					var FunctionType function = functions.get(func.id)
+					
+					if (function.assinatura.retorno.basic.boolean === null) {
+						error("Tipo de retorno da função deve ser bool", null)
+					}
+				}
+			}	
 		}
 	}
 	
 	def checaForNormal(ForClause clause) {
 		if(clause.init !== null) {
-			var String tipo = getTipo(clause.init.varDecl.signature.type.basic)
-			if (clause.init.varDecl.signature.type.basic.int === null) {
+			var String tipo = getTipoVariavel(clause.init.varDecl).toString();
+			if (tipo !== "int") {
 				error("Tipo da variável de controle do laço deve ser numérica " + tipo, null)
 			}
 		}
@@ -248,8 +338,9 @@ class GoValidator extends AbstractGoValidator {
 	def checaVarDoRange(RangeDecl range) {
 		if (range.variavel !== null) {
 			var VarDecl variavel = variaveis.get(range.variavel.id)
-			if (variavel.array === null) {
-				error("Tipo esperado é array", null)
+			if (variavel.varIgual.array === null || variavel.varPontos.array === null 
+				|| getTipoVariavel(variavel).toString() != "string" ) {
+				error("Tipo passado não é iterável", null)
 			}
 		} else if (range.func !== null) {
 			var FunctionType function = functions.get(range.func.id)
